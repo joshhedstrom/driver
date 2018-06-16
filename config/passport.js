@@ -1,17 +1,16 @@
-//load bcrypt
-var bCrypt = require('bcrypt-nodejs');
+const bCrypt = require('bcrypt-nodejs');
 
-module.exports = function(passport, user) {
+module.exports = (passport, user)=> {
 
     const User = user;
     const LocalStrategy = require('passport-local').Strategy;
 
-    passport.serializeUser(function(user, done) {
+    passport.serializeUser((user, done)=> {
         done(null, user.id);
     });
 
-    passport.deserializeUser(function(id, done) {
-        User.findById(id).then(function(user) {
+    passport.deserializeUser((id, done)=> {
+        User.findById(id).then(user => {
             if (user) {
                 done(null, user.get());
             } else {
@@ -29,8 +28,8 @@ module.exports = function(passport, user) {
             passReqToCallback: true
         },
 
-        function(req, username, password, done) {
-            const generateHash = function(password) {
+        (req, username, password, done) => {
+            const generateHash = password => {
                 return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
             };
 
@@ -38,7 +37,7 @@ module.exports = function(passport, user) {
                 where: {
                     username: username
                 }
-            }).then(function(user) {
+            }).then(user => {
 
                 if (user) {
                     return done(null, false, {
@@ -52,7 +51,7 @@ module.exports = function(passport, user) {
                         password: userPassword,
                     };
 
-                    User.create(data).then(function(newUser, created) {
+                    User.create(data).then((newUser, created) => {
                         if (!newUser) {
                             return done(null, false);
                         }
@@ -73,9 +72,9 @@ module.exports = function(passport, user) {
             passReqToCallback: true
         },
 
-        function(req, username, password, done) {
+        (req, username, password, done) => {
             let User = user;
-            const isValidPassword = function(userpass, password) {
+            const isValidPassword = (userpass, password) => {
                 return bCrypt.compareSync(password, userpass);
             }
 
@@ -83,7 +82,7 @@ module.exports = function(passport, user) {
                 where: {
                     username: username
                 }
-            }).then(function(user) {
+            }).then(user => {
 
                 if (!user) {
                     console.log('NOT USER')
@@ -103,7 +102,7 @@ module.exports = function(passport, user) {
 
                 return done(null, userinfo);
 
-            }).catch(function(err) {
+            }).catch(err => {
 
                 console.log("Error:", err);
 

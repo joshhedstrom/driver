@@ -2,13 +2,7 @@ const path = require("path");
 const authController = require('../controller/authController.js');
 
 
-module.exports = function(app, passport) {
-
-    app.get("/", function(req, res) {
-        // res.sendFile(path.join(__dirname, "../public/index.html"));
-    })
-
-    //AUTH----------------------------------------------------------------------------------->>>>>>
+module.exports = (app, passport) => {
 
     app.get('/login', authController.login);
 
@@ -28,7 +22,7 @@ module.exports = function(app, passport) {
         failureRedirect: '/login'
     }));
 
-    function isLoggedIn(req, res, next) {
+    function isLoggedIn(req, res, next)  {
         if (req.isAuthenticated())
             return next();
 

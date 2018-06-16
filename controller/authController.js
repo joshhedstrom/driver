@@ -3,23 +3,23 @@ const db = require('../models')
 
 var exports = module.exports = {}
 
-exports.login = function(req, res) {
+exports.login = (req, res) => {
     res.sendFile(path.join(__dirname, "../public/index.html"));
 }
 
-exports.user = function(req, res) {
+exports.user = (req, res) => {
     res.json({
         'id': req.user.id,
         'username': req.user.username
     })
 }
 
-exports.dashboard = function(req, res) {
+exports.dashboard = (req, res) => {
     res.sendFile(path.join(__dirname, "../public/main.html"));
 }
 
-exports.logout = function(req, res) {
-    req.session.destroy(function(err) {
+exports.logout = (req, res) => {
+    req.session.destroy(err => {
         res.redirect('/');
     });
 }
