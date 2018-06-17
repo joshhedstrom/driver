@@ -15,7 +15,7 @@ exports.user = (req, res) => {
 }
 
 exports.dashboard = (req, res) => {
-    res.sendFile(path.join(__dirname, "../public/main.html"));
+    res.sendFile(path.join(__dirname, "../public/dashboard.html"));
 }
 
 exports.logout = (req, res) => {
