@@ -161,12 +161,10 @@ $(document).ready(function() {
 
     $("#btnAllTrips").click(()=> {
         if (allTripsHidden === true) {
-            console.log('show table')
             $('#all-trips-data').attr('style', 'display: table');
             $('#btnAllTrips').html('Hide All Trips <i class="material-icons left">directions_car</i>');
             allTripsHidden = false;
         } else if (allTripsHidden === false) {
-            console.log('hide table')
             $('#all-trips-data').attr('style', 'display: none');
             $('#btnAllTrips').html('Show All Trips <i class="material-icons left">directions_car</i>');
             allTripsHidden = true;
@@ -190,9 +188,8 @@ $(document).ready(function() {
     // Delete a trip
     $('body').on("click", ".delete", e => {
         e.preventDefault();
-        let id = $(this).attr('data-id');
-        let tr = $(this).closest('tr');
-        console.log(`ID: ${id} || TR: ${tr}`)
+        let id = $(this.activeElement).attr('data-id');
+        let tr = $(this.activeElement).closest('tr');
         $.ajax({
             method: "DELETE",
             url: "/api/" + userID + "/trips/" + id
