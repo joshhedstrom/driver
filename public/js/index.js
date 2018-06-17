@@ -1,8 +1,8 @@
-$(document).ready(function() {
+$(document).ready(()=> {
 
     //SIGN UP----------------------------------------------------------------------->>
 
-    $('#new-user-submit').click(function(e) {
+    $('#new-user-submit').click(e => {
         e.preventDefault()
 
         let username = $('#new-user-username').val().trim();
@@ -13,7 +13,7 @@ $(document).ready(function() {
             password: password
         }
 
-        $.post("/signup", user, function(data) {
+        $.post("/signup", user, data => {
             sessionStorage.setItem('userID', data.id)
             sessionStorage.setItem('username', data.username)
             window.location.replace('/dashboard')
@@ -22,7 +22,7 @@ $(document).ready(function() {
 
     //LOG IN------------------------------------------------------------------------>>
 
-    $('#returning-user-submit').click(function(e) {
+    $('#returning-user-submit').click(e => {
         e.preventDefault()
 
         let username = $('#returning-user-username').val().trim();
@@ -33,7 +33,7 @@ $(document).ready(function() {
             password: password
         }
 
-        $.post("/login", user, function(data) {
+        $.post("/login", user, data => {
             sessionStorage.setItem('userID', data.id)
             sessionStorage.setItem('username', data.username)
             window.location.replace('/dashboard')

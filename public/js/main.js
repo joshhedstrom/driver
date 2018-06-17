@@ -20,7 +20,7 @@ $(document).ready(function() {
     $('.shiftStart').attr('style', 'display: block;');
     $('.shiftEnd').attr('style', 'display: none;');
 
-    $("#shiftstart").on("click", function(e) {
+    $("#shiftstart").on("click", e => {
         e.preventDefault();
         console.log('Shift started')
         $('.shiftStart').attr('style', 'display: none;');
@@ -36,7 +36,7 @@ $(document).ready(function() {
         $("#starting").val("");
     })
 
-    $("#shiftend").on("click", function(e) {
+    $("#shiftend").on("click", e => {
         e.preventDefault();
         console.log('Shift ended')
         $('.shiftStart').attr('style', 'display: block;');
@@ -59,13 +59,6 @@ $(document).ready(function() {
         tripMiles = Math.abs(startingOdo - endingOdo);
         tripHourlyWage = Math.abs(tripTips / tripHours);
 
-        console.log("Miles this trip: " + tripMiles);
-        console.log("Tips Collected: $" + tripTips);
-        console.log("Hours Worked: " + tripHours);
-        console.log("Hourly Wage: $" + tripHourlyWage);
-        console.log("Description: " + tripDescription);
-
-
         let newTrip = {
             user: username,
             userid: userID,
@@ -81,14 +74,14 @@ $(document).ready(function() {
     })
 
     function submitTrip(newTrip) {
-        $.post("/api/trips", newTrip, function() {
+        $.post("/api/trips", newTrip, ()=> {
             location.reload();
         })
     }
 
     // Get trips from database and updates view
     function getTrips() {
-        $.get(`/api/${userID}/trips`, function(data) {
+        $.get(`/api/${userID}/trips`, data => {
             trips = data;
 
             if (!trips || !trips.length) {
@@ -104,10 +97,7 @@ $(document).ready(function() {
 
     // Most recent trip table
     function mostRecent() {
-        let tripsToAdd = [];
-        for (let i = 0; i < trips.length; i++) {
-            tripsToAdd.push(trips[i]);
-        }
+        let tripsToAdd = Array.from(trips)
 
         for (let j = 0; j < tripsToAdd.length; j++) {
 
@@ -128,14 +118,10 @@ $(document).ready(function() {
 
     // Fill all trips from database into trips Table
     function fillTable(tripId) {
-        let tripsToAdd = [];
-        for (let i = 0; i < trips.length; i++) {
-            tripsToAdd.push(trips[i]);
-        }
+        let tripsToAdd = Array.from(trips)
 
         for (let j = 0; j < tripsToAdd.length; j++) {
 
-            // let tripUser = tripsToAdd[j].user;
             let tripStartingOdo = tripsToAdd[j].startingOdometer
             let tripEndingOdo = tripsToAdd[j].endingOdometer
             let tripMiles = tripsToAdd[j].miles;
@@ -171,19 +157,17 @@ $(document).ready(function() {
         };
     };
 
-    let hide = true;
+    let allTripsHidden = true;
 
-    $("#btnAllTrips").click(function() {
-        if (hide === true) {
-            console.log('show table')
+    $("#btnAllTrips").click(()=> {
+        if (allTripsHidden === true) {
             $('#all-trips-data').attr('style', 'display: table');
             $('#btnAllTrips').html('Hide All Trips <i class="material-icons left">directions_car</i>');
-            hide = false;
-        } else if (hide === false) {
-            console.log('hide table')
+            allTripsHidden = false;
+        } else if (allTripsHidden === false) {
             $('#all-trips-data').attr('style', 'display: none');
             $('#btnAllTrips').html('Show All Trips <i class="material-icons left">directions_car</i>');
-            hide = true;
+            allTripsHidden = true;
         }
     });
 
@@ -202,14 +186,14 @@ $(document).ready(function() {
     };
 
     // Delete a trip
-    $('body').on("click", ".delete", function(e) {
+    $('body').on("click", ".delete", e => {
         e.preventDefault();
-        var id = $(this).attr('data-id');
-        var tr = $(this).closest('tr');
+        let id = $(this.activeElement).attr('data-id');
+        let tr = $(this.activeElement).closest('tr');
         $.ajax({
             method: "DELETE",
             url: "/api/" + userID + "/trips/" + id
-        }).then(function() {
+        }).then(()=> {
             tr.remove();
         })
     });
@@ -218,7 +202,7 @@ $(document).ready(function() {
     function tripEdit() {
         tripId = $(this).attr('data-id');
 
-        $.get(`/api/${userID}/trips/` + tripId, function(data) {
+        $.get(`/api/${userID}/trips/` + tripId, data => {
             if (data) {
                 let editStarting = $("#editStarting").val(data.startingOdometer);
                 let editEnding = $("#editEnding").val(data.endingOdometer);
@@ -230,14 +214,12 @@ $(document).ready(function() {
         })
     };
 
-    // Initialize Materialize JS for Modal
     M.AutoInit();
 
     // Click Event edit button
     $(document).on("click", ".edit", tripEdit);
 
-    // Click event for edited trip in modal
-    $("#editSubmit").on("click", function(e) {
+    $("#editSubmit").on("click", e => {
         e.preventDefault();
 
         let editStarting = $("#editStarting").val();
@@ -245,12 +227,6 @@ $(document).ready(function() {
         let editHours = $("#editHours").val();
         let editTips = $("#editTips").val();
         let editDescription = $("#editDescription").val();
-
-        console.log("New Starting Odometer: " + editStarting);
-        console.log("New Ending Odometer: " + editEnding);
-        console.log("New Hours: " + editHours);
-        console.log("New Tips: " + editTips);
-        console.log("New Description: " + editDescription);
 
         newTripMiles = Math.abs(editStarting - editEnding);
         newTripHourlyWage = Math.abs(editTips / editHours);
@@ -276,7 +252,7 @@ $(document).ready(function() {
                 url: `/api/${userID}/trips/${tripId}`,
                 data: trip
             })
-            .then(function() {
+            .then(()=> {
                 location.reload();
             });
     };
