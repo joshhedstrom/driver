@@ -22,18 +22,16 @@ $(document).ready(function() {
 
     $("#shiftstart").on("click", e => {
         e.preventDefault();
-        console.log('Shift started')
-        $('.shiftStart').attr('style', 'display: none;');
-        $('.shiftEnd').attr('style', 'display: block;');
-
-        startingOdo = $("#starting").val().trim();
 
         if (startingOdo.length < 1) {
             alert("Please enter Starting Mileage.");
+        } else {
+            startingOdo = $("#starting").val().trim();
+            $("#starting").val("");
+            $('.shiftStart').attr('style', 'display: none;');
+            $('.shiftEnd').attr('style', 'display: block;');
         }
 
-        console.log("Starting Odometer Miles: " + startingOdo);
-        $("#starting").val("");
     })
 
     $("#shiftend").on("click", e => {
@@ -74,7 +72,7 @@ $(document).ready(function() {
     })
 
     function submitTrip(newTrip) {
-        $.post("/api/trips", newTrip, ()=> {
+        $.post("/api/trips", newTrip, () => {
             location.reload();
         })
     }
@@ -159,7 +157,7 @@ $(document).ready(function() {
 
     let allTripsHidden = true;
 
-    $("#btnAllTrips").click(()=> {
+    $("#btnAllTrips").click(() => {
         if (allTripsHidden === true) {
             $('#all-trips-data').attr('style', 'display: table');
             $('#btnAllTrips').html('Hide All Trips <i class="material-icons left">directions_car</i>');
@@ -193,7 +191,7 @@ $(document).ready(function() {
         $.ajax({
             method: "DELETE",
             url: "/api/" + userID + "/trips/" + id
-        }).then(()=> {
+        }).then(() => {
             tr.remove();
         })
     });
@@ -252,7 +250,7 @@ $(document).ready(function() {
                 url: `/api/${userID}/trips/${tripId}`,
                 data: trip
             })
-            .then(()=> {
+            .then(() => {
                 location.reload();
             });
     };
