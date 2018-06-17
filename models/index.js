@@ -4,12 +4,13 @@ const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
 const basename = path.basename(module.filename);
-const env = process.env.NODE_ENV || "development";
+const env = process.env.NODE_ENV || "production";
 const config = require(__dirname + "/../config/config.json")[env];
 const db = {};
 
 
 if (config.use_env_variable) {
+    console.log('is')
     var sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
     var sequelize = new Sequelize(config.database, config.username, config.password, config);

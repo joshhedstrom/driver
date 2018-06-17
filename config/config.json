@@ -14,6 +14,7 @@
     "dialect": "mysql"
   },
   "production": {
+    "host": "localhost",
     "use_env_variable": "JAWS_URL",
     "dialect": "mysql"
   }
