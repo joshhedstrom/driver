@@ -4,6 +4,7 @@
     "password": "",
     "database": "miles_db",
     "host": "127.0.0.1",
+    "insecureAuth": true,
     "dialect": "mysql"
   },
   "test": {
