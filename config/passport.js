@@ -40,7 +40,7 @@ module.exports = (passport, user)=> {
             }).then(user => {
 
                 if (user) {
-                    return done(null, false, req.flash('That username is already taken'));
+                    return done(null, false, req.flash('message', 'That username is already taken'));
                 } else {
                     let userPassword = generateHash(password);
                     console.log("hashed: ", userPassword)
@@ -83,11 +83,11 @@ module.exports = (passport, user)=> {
             }).then(user => {
 
                 if (!user) {
-                    return done(null, false, req.flash('Username does not exist'));
+                    return done(null, false, req.flash('message', 'Username does not exist'));
                 }
 
                 if (!isValidPassword(user.password, password)) {
-                    return done(null, false, req.flash('Incorrect password.'));
+                    return done(null, false, req.flash('message', 'Incorrect password.'));
                 }
 
                 let userinfo = user.get();
@@ -96,7 +96,7 @@ module.exports = (passport, user)=> {
 
             }).catch(err => {
                 console.log("Error:", err); 
-                return done(null, false, req.flash('Something went wrong with your Sign in'));
+                return done(null, false, req.flash('message', 'Something went wrong with your Sign in'));
             });
         }
     ));
