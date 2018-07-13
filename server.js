@@ -1,36 +1,38 @@
 // Dependencies
-const express = require("express");
-const bodyParser = require("body-parser");
+const express = require('express');
+const bodyParser = require('body-parser');
 const passport = require('passport');
 const session = require('express-session');
-const flash = require('connect-flash')
+const flash = require('connect-flash');
 const morgan = require('morgan');
 
 // Require models for syncing
-const db = require("./models");
+const db = require('./models');
 
 // Express
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true}));
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(flash())
+app.use(flash());
 
 // Passport
-app.use(session({ secret: 'driverLogger',resave: true, saveUninitialized:true}));
+app.use(
+  session({ secret: 'driverLogger', resave: true, saveUninitialized: true })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(morgan('dev'));
 
 // Routes
-require("./routes/html-routes.js")(app, passport);
-require("./routes/api-routes.js")(app);
+require('./routes/html-routes.js')(app, passport);
+require('./routes/api-routes.js')(app);
 require('./config/passport.js')(passport, db.user);
 
 db.sequelize.sync().then(() => {
-    app.listen(PORT, () => {
-        console.log(`App listening on http://localhost: ${PORT}`);
-    })
-})
+  app.listen(PORT, () => {
+    console.log(`App listening on http://localhost: ${PORT}`);
+  });
+});
