@@ -1,122 +1,25 @@
-const bCrypt = require('bcrypt-nodejs');
+const JwtStrategy = require('passport-jwt').Strategy,
+  ExtractJwt = require('passport-jwt').ExtractJwt;
 
-module.exports = (passport, user) => {
-  const User = user;
-  const LocalStrategy = require('passport-local').Strategy;
+const User = require('../models/User');
+const settings = require('../config/settings');
 
-  passport.serializeUser((user, done) => {
-    done(null, user.id);
-  });
-
-  passport.deserializeUser((id, done) => {
-    User.findById(id).then(user => {
-      if (user) {
-        done(null, user.get());
-      } else {
-        done(user.errors, null);
-      }
-    });
-  });
-
+module.exports = passport => {
+  let opts = {};
+  opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
+  opts.secretOrKey = settings.secret;
   passport.use(
-    'local-signup',
-    new LocalStrategy(
-      {
-        usernameField: 'username',
-        passwordField: 'password',
-        passReqToCallback: true
-      },
-
-      (req, username, password, done) => {
-        const generateHash = password => {
-          return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
-        };
-
-        User.findOne({
-          where: {
-            username: username
-          }
-        }).then(user => {
-          if (user) {
-            return done(
-              null,
-              false,
-              req.flash('message', 'That username is already taken')
-            );
-          } else {
-            let userPassword = generateHash(password);
-            console.log('hashed: ', userPassword);
-            let data = {
-              username: username,
-              password: userPassword
-            };
-
-            User.create(data).then((newUser, created) => {
-              if (!newUser) {
-                return done(null, false);
-              }
-
-              if (newUser) {
-                return done(null, newUser);
-              }
-            });
-          }
-        });
-      }
-    )
-  );
-
-  //LOCAL SIGNIN
-  passport.use(
-    'local-signin',
-    new LocalStrategy(
-      {
-        usernameField: 'username',
-        passwordField: 'password',
-        passReqToCallback: true
-      },
-
-      (req, username, password, done) => {
-        let User = user;
-        const isValidPassword = (userpass, password) => {
-          return bCrypt.compareSync(password, userpass);
-        };
-
-        User.findOne({
-          where: {
-            username: username
-          }
-        })
-          .then(user => {
-            if (!user) {
-              return done(
-                null,
-                false,
-                req.flash('message', 'Username does not exist')
-              );
-            }
-
-            if (!isValidPassword(user.password, password)) {
-              return done(
-                null,
-                false,
-                req.flash('message', 'Incorrect password.')
-              );
-            }
-
-            let userinfo = user.get();
-
-            return done(null, userinfo);
-          })
-          .catch(err => {
-            console.log('Error:', err);
-            return done(
-              null,
-              false,
-              req.flash('message', 'Something went wrong with your Sign in')
-            );
-          });
-      }
-    )
+    new JwtStrategy(opts, (jwt_payload, done) => {
+      User.findOne({ id: jwt_payload.id }, (err, user) => {
+        if (err) {
+          return done(err, false);
+        }
+        if (user) {
+          done(null, user);
+        } else {
+          done(null, false);
+        }
+      });
+    })
   );
 };
