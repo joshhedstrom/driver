@@ -1,43 +1,22 @@
-// Dependencies
 const express = require('express');
-const bodyParser = require('body-parser');
 const passport = require('passport');
 const session = require('express-session');
-const flash = require('express-flash');
 const morgan = require('morgan');
-
-const sessionStore = new session.MemoryStore();
-
-// Require models for syncing
 const db = require('./models');
-
-// Express
+const routes = require('./routes');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
 
-// Passport
-app.use(
-    session({ secret: 'driverLogger', store: sessionStore, resave: true, saveUninitialized: true })
-);
-app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(morgan('dev'));
-
-app.use((req, res, next) => {
-  res.locals.sessionFlash = req.session.sessionFlash;
-  delete req.session.sessionFlash;
-  next();
-});
-
-// Routes
 require('./routes/html-routes.js')(app, passport);
 require('./routes/api-routes.js')(app);
 require('./config/passport.js')(passport, db.user);
+// app.use(routes);
+
 
 db.sequelize.sync().then(() => {
   app.listen(PORT, () => {
