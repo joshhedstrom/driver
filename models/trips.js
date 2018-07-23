@@ -1,37 +1,18 @@
-module.exports = (sequelize, DataTypes) => {
-    const Trips = sequelize.define("Trips", {
-        user: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        userid: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        startingOdometer: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        endingOdometer: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        miles: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
-        tips: {
-            type: DataTypes.INTEGER,
-        },
-        hours: {
-            type: DataTypes.INTEGER,
-        },
-        wage: {
-            type: DataTypes.INTEGER,
-        },
-        description: {
-            type: DataTypes.STRING,
-        }
-    });
-    return Trips;
-};
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const tripSchema = new Schema({
+  userId: { type: Schema.Types.ObjectId },
+  date: { type: Date, default: Date.now },
+  startingOdometer: { type: Number, default: 0 },
+  endingOdometer: { type: Number, default: 0 },
+  miles: { type: Number, default: 0 },
+  hours: { type: Number, default: 0 },
+  tips: { type: Number, default: 0 },
+  wage: { type: Number, default: 0 },
+  description: { type: String }
+});
+
+const Trip = mongoose.model('Trip', tripSchema);
+
+module.exports = Trip;
