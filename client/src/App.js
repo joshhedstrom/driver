@@ -12,6 +12,11 @@ import BottomNav from './Components/BottomNav';
 import './App.css';
 
 class App extends React.Component {
+
+  state={
+    redirect: false,
+    currentPage: 0,
+  }
   renderRedirect = () => {
     if (!localStorage.getItem('jwtToken')) {
       return <Redirect to="/login" />;
@@ -33,7 +38,7 @@ class App extends React.Component {
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/history" component={History} />
           </Switch>
-          <BottomNav />
+          <BottomNav currentPage={this.state.currentPage} />
         </div>
       </Router>
     );

@@ -24,7 +24,7 @@ class TripEndFrom extends React.Component {
 
     return (
       <div className={classes.root}>
-        <Grid container spacing={24}>
+        <Grid container spacing={0}>
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <TextField
