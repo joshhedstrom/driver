@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   root: {
@@ -22,8 +23,24 @@ function CenteredGrid(props) {
     <div className={classes.root}>
       <Grid container spacing={24}>
         <Grid item xs={12}>
-          <Paper className={classes.paper}>xs=12</Paper>
+          <Paper className={classes.paper}>
+            <TextField
+              required
+              id="required"
+              placeholder='starting o'
+              type='number'
+              label="starting odometer"
+              defaultValue="Hello World"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              margin="normal"
+            />
+          </Paper>
         </Grid>
+        <Button variant="outlined">
+          start trip
+      </Button>
         <Grid item xs={6}>
           <Paper className={classes.paper}>xs=6</Paper>
         </Grid>

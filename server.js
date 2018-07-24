@@ -14,9 +14,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(morgan('dev'));
-require('./routes/html-routes.js')(app, passport);
-require('./routes/api-routes.js')(app);
-require('./config/passport.js')(passport, db.user);
+// require('./routes/html-routes.js')(app, passport);
+// require('./routes/api-routes.js')(app);
+// require('./config/passport.js')(passport, db.user);
 // app.use(routes);
 
 app.listen(PORT, () => {
