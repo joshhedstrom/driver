@@ -1,34 +1,40 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import TripStartForm from '../../Components/Trips/TripStartForm/TripStartForm';
-import TripEndFrom from '../../Components/Trips/TripEndForm/TripEndForm';
+import TripEndForm from '../../Components/Trips/TripEndForm/TripEndForm';
 
 class Dashboard extends Component {
   state = {
-    tripStarted: false,
+    tripStarted: true,
     startingValue: 0,
+    startingEndValue: 0,
     startingOdometer: 0,
     endingOdometer: 0,
     miles: 0,
     hours: 0,
     tips: 0,
-    wage: 0,
+    wages: 0,
+    lastWages: 10,
     description: ''
   }
 
-  componentWillMount(){
-    this.setState({startingValue: 145600})
+  componentWillMount() {
     //axios call to get initial starting odometer
+    this.setState({ startingValue: 145600 });
   }
 
   handleStartTrip = () => {
-    this.setState({tripStarted: true})
+    this.setState({ tripStarted: true });
     // axios request to start new trip
-  }
+  };
+
+  handleEndTrip = () => {
+    //axios request to update trip
+  };
 
   handleChange = event => {
-    this.setState({[event.target.name]: parseInt(event.target.value)})
-  }
+    this.setState({ [event.target.name]: parseInt(event.target.value) });
+  };
 
   // renderRedirect = () => {
   //   if (!localStorage.getItem('jwtToken')) {
@@ -40,11 +46,22 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <TripStartForm
-        startingValue={this.state.startingValue}
-        handleStartTrip={this.handleStartTrip}
-        handleChange={this.handleChange}
-         />
+        {this.state.tripStarted ? (
+          <TripEndForm 
+          handleChange={this.handleChange}
+          handleEndTrip={this.handleEndTrip}
+          startingValue={this.startingValue}
+          timePassed={2.5}
+          lastWages={this.state.lastWages}
+          startingEndValue={this.state.startingEndValue}
+          />
+        ) : (
+          <TripStartForm
+            startingValue={this.state.startingValue}
+            handleStartTrip={this.handleStartTrip}
+            handleChange={this.handleChange}
+          />
+        )}
       </div>
     );
   }
