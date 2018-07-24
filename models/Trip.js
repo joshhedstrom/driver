@@ -10,7 +10,8 @@ const tripSchema = new Schema({
   hours: { type: Number, default: 0 },
   tips: { type: Number, default: 0 },
   wage: { type: Number, default: 0 },
-  description: { type: String }
+  description: { type: String },
+  tripCompleted: {type: Boolean, default: false}
 });
 
 const Trip = mongoose.model('Trip', tripSchema);
