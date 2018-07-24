@@ -5,13 +5,13 @@ import Signup from './Pages/Signup';
 import Dashboard from './Pages/Dashboard';
 import History from './Pages/History';
 import NavBar from './Components/Navbar';
-
 import './App.css';
+{/* <NavBar /> */}
+
 
 const App = () => (
   <Router>
     <div>
-      <NavBar />
       <Switch>
         <Route exact path="/" component={Dashboard} />
         <Route exact path="/login" component={Login} />
