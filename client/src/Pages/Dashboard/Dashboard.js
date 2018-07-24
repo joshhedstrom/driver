@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import TripStartForm from '../../Components/Trips/TripStartForm/TripStartForm';
 import TripEndForm from '../../Components/Trips/TripEndForm/TripEndForm';
 
@@ -36,12 +35,7 @@ class Dashboard extends Component {
     this.setState({ [event.target.name]: parseInt(event.target.value) });
   };
 
-  // renderRedirect = () => {
-  //   if (!localStorage.getItem('jwtToken')) {
-  //     return <Redirect to="/login" />;
-  //   }
-  // }
-  // {this.renderRedirect()}
+ 
 
   render() {
     return (
