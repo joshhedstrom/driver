@@ -27,11 +27,13 @@ class TripStartFrom extends React.Component {
             <Paper className={classes.paper}>
               <TextField
                 required
-                id="required"
-                placeholder="starting o"
+                placeholder="starting odometer"
                 type="number"
                 label="starting odometer"
-                defaultValue="Hello World"
+                name='startingOdometer'
+                fullWidth
+                onChange={this.props.handleChange}
+                defaultValue={this.props.startingValue}
                 InputLabelProps={{
                   shrink: true
                 }}
@@ -39,13 +41,19 @@ class TripStartFrom extends React.Component {
               />
             </Paper>
           </Grid>
-          <Button variant="outlined">start trip</Button>
-          <Grid item xs={6}>
+          <Button
+            onClick={this.props.handleStartTrip}
+            color="primary"
+            variant="outlined"
+          >
+            start trip
+          </Button>
+          {/* <Grid item xs={6}>
             <Paper className={classes.paper}>xs=6</Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className={classes.paper}>xs=6</Paper>
-          </Grid>
+          </Grid> */}
         </Grid>
       </div>
     );
