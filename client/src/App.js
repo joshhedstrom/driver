@@ -11,22 +11,20 @@ import NavBar from './Components/Navbar';
 import './App.css';
 
 class App extends React.Component {
-
-  state={
+  state = {
     redirect: false
-  }
+  };
   renderRedirect = () => {
     if (!localStorage.getItem('jwtToken')) {
       return <Redirect to="/login" />;
     }
   };
 
-  // {this.renderRedirect()}
-
   render() {
     return (
       <Router>
         <div>
+          {this.renderRedirect()}
           <NavBar />
           <Switch>
             <Route exact path="/" component={Dashboard} />
