@@ -20,7 +20,7 @@ app.get('/*', (req, res) => {
   });
 });
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/driver_db');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/driver_db', { useNewUrlParser: true });
 
 app.use(morgan('dev'));
 
