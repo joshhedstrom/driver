@@ -18,7 +18,8 @@ module.exports = {
   // },
 
   findUserById: function (req, res) {
-    db.User.findOne({ _id: req.params.id })
+    let id = `ObjectId("${req.params.id}")`
+    db.User.findOne({ _id: id })
       .then(userModel => res.json(userModel))
       .catch(err => res.status(422).json(err))
   },

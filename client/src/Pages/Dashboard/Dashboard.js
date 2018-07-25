@@ -18,7 +18,7 @@ class Dashboard extends Component {
     lastWages: 10,
     tripCompleted: false,
     description: ''
-  };
+  }
 
   componentDidMount() {
     let userId = localStorage.getItem('userId')
@@ -47,11 +47,11 @@ class Dashboard extends Component {
       tripCompleted: false,
       description: ''
     });
-  };
+  }
 
   handleChange = event => {
     this.setState({ [event.target.name]: parseInt(event.target.value, 10) });
-  };
+  }
 
   handleSubmit = () => {
     let income = this.state.tips + this.state.wages;
@@ -87,7 +87,7 @@ class Dashboard extends Component {
         .catch(err => console.log(err));
       this.setState({ tripStarted: true });
     }
-  };
+  }
 
   render() {
     return (
