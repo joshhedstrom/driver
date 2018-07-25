@@ -3,7 +3,6 @@ import TripStartForm from '../../Components/Trips/TripStartForm/TripStartForm';
 import TripEndForm from '../../Components/Trips/TripEndForm/TripEndForm';
 import BottomNav from '../../Components/BottomNav';
 import axios from 'axios';
-import { calendarFormat } from '../../../../node_modules/moment';
 
 class Dashboard extends Component {
   state = {
@@ -21,9 +20,16 @@ class Dashboard extends Component {
     description: ''
   };
 
-  componentWillMount() {
-    //axios call to get initial starting odometer
-    this.setState({ startingValue: 145600 });
+  componentDidMount() {
+    let userId = localStorage.getItem('userId')
+    let startingValue;
+    let lastWages;
+
+    axios
+    .get(`/api/user/${userId}`)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+    this.setState({ lastWages: lastWages });
   }
 
   clearState = () => {

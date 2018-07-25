@@ -2,19 +2,25 @@ const db = require('../models');
 const moment = require('moment');
 
 module.exports = {
-  findUserById: function(req, res) {
-    db.User.findByIdAndUpdate({ _id: req.params.id })
-      .select('-__v -password')
-      .populate({
-        path: 'trips',
-        options: {
-          sort: {
-            date: -1
-          }
-        }
-      })
+  // findUserById: function(req, res) {
+  //   db.User.findByIdAndUpdate({ _id: req.params.id })
+  //     .select('-__v -password')
+  //     .populate({
+  //       path: 'trips',
+  //       options: {
+  //         sort: {
+  //           date: -1
+  //         }
+  //       }
+  //     })
+  //     .then(userModel => res.json(userModel))
+  //     .catch(err => res.status(422).json(err));
+  // },
+
+  findUserById: function (req, res) {
+    db.User.findOne({ _id: req.params.id })
       .then(userModel => res.json(userModel))
-      .catch(err => res.status(422).json(err));
+      .catch(err => res.status(422).json(err))
   },
 
   createUser: function(req, res) {

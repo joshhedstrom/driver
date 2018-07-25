@@ -2,7 +2,7 @@ const db = require('../models');
 const moment = require('moment');
 
 module.exports = {
-  // User controllers
+
   findTripById: function(req, res) {
     db.User.findByIdAndUpdate({ _id: req.params.id })
       .select('-__v -password')
