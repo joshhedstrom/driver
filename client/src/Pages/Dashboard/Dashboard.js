@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import TripStartForm from '../../Components/Trips/TripStartForm/TripStartForm';
 import TripEndForm from '../../Components/Trips/TripEndForm/TripEndForm';
+import BottomNav from '../../Components/BottomNav';
 
 class Dashboard extends Component {
   state = {
     tripStarted: false,
+    currentPage: 0,
     startingValue: 0,
     startingEndValue: 0,
     startingOdometer: 0,
@@ -35,8 +37,6 @@ class Dashboard extends Component {
     this.setState({ [event.target.name]: parseInt(event.target.value) });
   };
 
- 
-
   render() {
     return (
       <div>
@@ -56,6 +56,7 @@ class Dashboard extends Component {
             handleChange={this.handleChange}
           />
         )}
+        <BottomNav currentPage={this.state.currentPage} />
       </div>
     );
   }

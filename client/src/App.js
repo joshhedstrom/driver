@@ -8,14 +8,12 @@ import Profile from './Pages/Profile';
 import Settings from './Pages/Settings';
 import History from './Pages/History';
 import NavBar from './Components/Navbar';
-import BottomNav from './Components/BottomNav';
 import './App.css';
 
 class App extends React.Component {
 
   state={
-    redirect: false,
-    currentPage: 0,
+    redirect: false
   }
   renderRedirect = () => {
     if (!localStorage.getItem('jwtToken')) {
@@ -38,7 +36,6 @@ class App extends React.Component {
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/history" component={History} />
           </Switch>
-          <BottomNav currentPage={this.state.currentPage} />
         </div>
       </Router>
     );
