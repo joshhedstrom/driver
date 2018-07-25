@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios'
 import SignupComponent from '../../Components/Signup/SignupComponent';
 
 class Signup extends Component {
@@ -16,21 +17,34 @@ class Signup extends Component {
   };
 
   handleSubmit = () => {
-      let firstName = this.state.firstName;
-      let lastName = this.state.lastName;
-      let username = this.state.username;
-      let password = this.state.password;
-      let passwordConfirmation = this.state.passwordConfirmation;
+    let firstName = this.state.firstName;
+    let lastName = this.state.lastName;
+    let username = this.state.username;
+    let password = this.state.password;
+    let passwordConfirmation = this.state.passwordConfirmation;
 
-
-    if (!firstName || !lastName || !username || ! password || !passwordConfirmation) {
+    if (
+      !firstName ||
+      !lastName ||
+      !username ||
+      !password ||
+      !passwordConfirmation
+    ) {
       this.setState({ message: 'Oops...make sure to fill out all fields' });
     } else if (password !== passwordConfirmation) {
       this.setState({ message: "Oops...the passwords didn't match" });
     } else {
-      //check passwords
-      //submit form
-      console.log('form ', this.state);
+      let form = {
+        firstName: firstName,
+        lastName: lastName,
+        username: username,
+        password: password
+      };
+
+      axios.post('/auth/register', form).then(result => {
+        console.log(result)
+        this.props.history.push('/login');
+      });
     }
   };
 

@@ -1,9 +1,9 @@
+const mongoose = require('mongoose');
 const passport = require('passport');
 const settings = require('../config/settings');
 require('../config/passport')(passport);
-const express = require('express');
 const jwt = require('jsonwebtoken');
-const router = express.Router();
+const router = require('express').Router();
 const User = require('../models/User.js');
 
 router.post('/register', (req, res) => {
@@ -22,21 +22,19 @@ router.post('/register', (req, res) => {
       lastName: req.body.lastName
     });
 
-    newUser.save(
-      err => {
-        if (err) {
-          return res.json({
-            success: false,
-            msg: 'Username already exists.'
-          });
-        } else {
-          res.json({
-            success: true,
-            msg: 'Successful created new user.'
-          });
-        }
+    newUser.save(err => {
+      if (err) {
+        return res.json({
+          success: false,
+          msg: 'Username already exists.'
+        });
+      } else {
+        res.json({
+          success: true,
+          msg: 'Successful created new user.'
+        });
       }
-    );
+    });
   }
 });
 
