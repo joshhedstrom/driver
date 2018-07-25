@@ -15,8 +15,9 @@ class Dashboard extends Component {
     tips: 0,
     wages: 0,
     lastWages: 10,
+    tripCompleted: false,
     description: ''
-  }
+  };
 
   componentWillMount() {
     //axios call to get initial starting odometer
@@ -26,6 +27,7 @@ class Dashboard extends Component {
   handleStartTrip = () => {
     this.setState({ tripStarted: true });
     // axios request to start new trip
+    this.forceUpdate();
   };
 
   handleEndTrip = () => {
@@ -36,17 +38,41 @@ class Dashboard extends Component {
     this.setState({ [event.target.name]: parseInt(event.target.value, 10) });
   };
 
+  handleSubmitForm = () => {
+    let income = this.state.tips + this.state.wages;
+    let formData = {
+      startingOdometer: this.state.startingOdometer,
+      endingOdometer: this.state.endingOdometer,
+      miles: this.state.miles,
+      hours: this.state.hours,
+      wages: this.state.wages,
+      tips: this.state.tips,
+      income: income,
+      tripCompleted: this.state.tripCompleted
+    };
+
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem(
+      'jwtToken'
+    );
+    axios
+      .post('/api/newtrip', formData)
+      .then(data => console.log(data))
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     return (
       <div>
         {this.state.tripStarted ? (
-          <TripEndForm 
-          handleChange={this.handleChange}
-          handleEndTrip={this.handleEndTrip}
-          startingValue={this.startingValue}
-          timePassed={2.5}
-          lastWages={this.state.lastWages}
-          startingEndValue={this.state.startingEndValue}
+          <TripEndForm
+            handleChange={this.handleChange}
+            handleEndTrip={this.handleEndTrip}
+            startingValue={this.startingValue}
+            timePassed={2.5}
+            lastWages={this.state.lastWages}
+            startingEndValue={this.state.startingEndValue}
           />
         ) : (
           <TripStartForm
