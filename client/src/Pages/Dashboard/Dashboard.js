@@ -26,12 +26,30 @@ class Dashboard extends Component {
     this.setState({ startingValue: 145600 });
   }
 
+  clearState = () => {
+    this.setState({
+      tripStarted: false,
+      startingValue: 0,
+      startingEndValue: 0,
+      startingOdometer: 0,
+      endingOdometer: 0,
+      miles: 0,
+      hours: 0,
+      tips: 0,
+      wages: 0,
+      lastWages: 10,
+      tripCompleted: false,
+      description: ''
+    });
+  };
+
   handleChange = event => {
     this.setState({ [event.target.name]: parseInt(event.target.value, 10) });
   };
 
   handleSubmit = () => {
     let income = this.state.tips + this.state.wages;
+    let currentTrip = localStorage.getItem('currentTrip');
     let formData = {
       startingOdometer: this.state.startingOdometer,
       endingOdometer: this.state.endingOdometer,
@@ -40,6 +58,7 @@ class Dashboard extends Component {
       wages: this.state.wages,
       tips: this.state.tips,
       income: income,
+      description: this.state.description,
       tripCompleted: this.state.tripCompleted
     };
 
@@ -47,18 +66,20 @@ class Dashboard extends Component {
       'jwtToken'
     );
 
-    let currentTrip = localStorage.getItem('currentTrip');
     if (currentTrip) {
-      //update trip
+      axios
+        .put(`/api/updateTrip/${currentTrip}`, formData)
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+      localStorage.removeItem('currentTrip');
       this.setState({ tripStarted: false });
+      this.clearState();
     } else {
       axios
         .post('/api/newTrip', formData)
         .then(res => localStorage.setItem('currentTrip', res.data._id))
         .catch(err => console.log(err));
-      localStorage.removeItem('currentTrip');
       this.setState({ tripStarted: true });
-      this.clearForm();
     }
   };
 

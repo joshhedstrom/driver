@@ -32,8 +32,8 @@ router.get(
 );
 
 //UPDATE TRIP
-router.get(
-  '/trip/:id',
+router.put(
+  '/updateTrip/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const token = getToken(req.headers);
