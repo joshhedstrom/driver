@@ -104,7 +104,7 @@ class TripEndFrom extends React.Component {
           </Grid>
           <Grid className={classes.buttonBox} item xs={12}>
             <Button
-              onClick={this.props.handleEndTrip}
+              onClick={this.props.handleSubmit}
               color="primary"
               variant="outlined"
               

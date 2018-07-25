@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import TripStartForm from '../../Components/Trips/TripStartForm/TripStartForm';
 import TripEndForm from '../../Components/Trips/TripEndForm/TripEndForm';
 import BottomNav from '../../Components/BottomNav';
+import axios from 'axios';
+import { calendarFormat } from '../../../../node_modules/moment';
 
 class Dashboard extends Component {
   state = {
@@ -24,21 +26,11 @@ class Dashboard extends Component {
     this.setState({ startingValue: 145600 });
   }
 
-  handleStartTrip = () => {
-    this.setState({ tripStarted: true });
-    // axios request to start new trip
-    this.forceUpdate();
-  };
-
-  handleEndTrip = () => {
-    //axios request to update trip
-  };
-
   handleChange = event => {
     this.setState({ [event.target.name]: parseInt(event.target.value, 10) });
   };
 
-  handleSubmitForm = () => {
+  handleSubmit = () => {
     let income = this.state.tips + this.state.wages;
     let formData = {
       startingOdometer: this.state.startingOdometer,
@@ -54,12 +46,20 @@ class Dashboard extends Component {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem(
       'jwtToken'
     );
-    axios
-      .post('/api/newtrip', formData)
-      .then(data => console.log(data))
-      .catch(err => {
-        console.log(err);
-      });
+
+    let currentTrip = localStorage.getItem('currentTrip');
+    if (currentTrip) {
+      //update trip
+      this.setState({ tripStarted: false });
+    } else {
+      axios
+        .post('/api/newTrip', formData)
+        .then(res => localStorage.setItem('currentTrip', res.data._id))
+        .catch(err => console.log(err));
+      localStorage.removeItem('currentTrip');
+      this.setState({ tripStarted: true });
+      this.clearForm();
+    }
   };
 
   render() {
@@ -68,7 +68,7 @@ class Dashboard extends Component {
         {this.state.tripStarted ? (
           <TripEndForm
             handleChange={this.handleChange}
-            handleEndTrip={this.handleEndTrip}
+            handleSubmit={this.handleSubmit}
             startingValue={this.startingValue}
             timePassed={2.5}
             lastWages={this.state.lastWages}
@@ -77,7 +77,7 @@ class Dashboard extends Component {
         ) : (
           <TripStartForm
             startingValue={this.state.startingValue}
-            handleStartTrip={this.handleStartTrip}
+            handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
           />
         )}

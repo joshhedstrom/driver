@@ -10,7 +10,6 @@ router.post(
   (req, res) => {
     const token = getToken(req.headers);
     if (token) {
-      console.log(req.body)
       db.Trip.createTrip(req, res);
     } else {
       return res.status(403).send({ success: false, msg: 'Unauthorized.' });
@@ -25,8 +24,21 @@ router.get(
   (req, res) => {
     const token = getToken(req.headers);
     if (token) {
-      console.log('user is loggd in to the get route user:id');
       db.User.findUserById(req, res);
+    } else {
+      return res.status(403).send({ success: false, msg: 'Unauthorized.' });
+    }
+  }
+);
+
+//UPDATE TRIP
+router.get(
+  '/trip/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const token = getToken(req.headers);
+    if (token) {
+      db.Trip.updateTrip(req, res);
     } else {
       return res.status(403).send({ success: false, msg: 'Unauthorized.' });
     }
@@ -47,19 +59,6 @@ router.get(
   }
 );
 
-//UPDATE TRIP
-router.get(
-  '/trip/:id',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    const token = getToken(req.headers);
-    if (token) {
-      db.Trip.updateTrip(req, res);
-    } else {
-      return res.status(403).send({ success: false, msg: 'Unauthorized.' });
-    }
-  }
-);
 
 getToken = function(headers) {
   if (headers && headers.authorization) {
