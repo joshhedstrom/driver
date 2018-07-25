@@ -7,8 +7,6 @@ const router = require('express').Router();
 const User = require('../models/User.js');
 
 router.post('/register', (req, res) => {
-  console.log('register route reached');
-
   if (!req.body.username || !req.body.password) {
     res.json({
       success: false,

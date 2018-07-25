@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import axios from 'axios';
 import SignupComponent from '../../Components/Signup/SignupComponent';
 
 class Signup extends Component {
@@ -34,15 +34,14 @@ class Signup extends Component {
     } else if (password !== passwordConfirmation) {
       this.setState({ message: "Oops...the passwords didn't match" });
     } else {
-      let form = {
+      let formData = {
         firstName: firstName,
         lastName: lastName,
         username: username,
         password: password
       };
 
-      axios.post('/auth/register', form).then(result => {
-        console.log(result)
+      axios.post('/auth/register', formData).then(result => {
         this.props.history.push('/login');
       });
     }
