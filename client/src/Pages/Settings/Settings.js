@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import SettingsComponent from '../../Components/Settings';
+import BottomNavComponent from '../../Components/BottomNav';
 
 class Settings extends Component {
-  state = {};
-
-  renderRedirect = () => {
-    if (!localStorage.getItem('jwtToken')) {
-      return <Redirect to="/login" />;
-    }
-  };
+  state = {}
 
   render() {
-    return <div>{this.renderRedirect()}</div>;
+    return (
+      <div>
+        <SettingsComponent />
+        <BottomNavComponent currentPage={2} />
+      </div>
+    );
   }
 }
 
