@@ -2,12 +2,26 @@ import React, { Component } from 'react';
 import LoginComponent from '../../Components/Login'
 
 class Login extends Component {
-    state = {}
+    state = {
+        username: '',
+        password: ''
+    }
+
+    handleSubmit = () => {
+        //submit data
+    }
+
+    handleChange = event => {
+        this.setState({[event.target.name]: event.target.value})
+    }
 
     render() {
         return (
             <div>
-                <LoginComponent />
+                <LoginComponent
+                handleSubmit={this.handleSubmit}
+                handleChange={this.handleChange}
+                 />
             </div>
         );
     }

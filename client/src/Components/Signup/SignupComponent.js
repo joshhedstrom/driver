@@ -8,6 +8,10 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
+  container: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
   root: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
@@ -22,7 +26,7 @@ function Signup(props) {
   const { classes } = props;
 
   return (
-    <div>
+    <div className={classes.container}>
       <Paper className={classes.root} elevation={1}>
         <Typography variant="headline" component="h3">
           Create Account

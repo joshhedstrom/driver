@@ -11,7 +11,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
   container: {
-    align: 'center'
+    display: 'flex',
+    justifyContent: 'center'
   },
   root: {
     ...theme.mixins.gutters(),
@@ -37,38 +38,40 @@ function Login(props) {
           Log In
         </Typography>
         <TextField
-          id="username"
-          label="Username (required)"
+          name="username"
+          required
+          label="username"
           className={classes.textField}
           margin="normal"
           fullWidth
-          onChange={props.usernameAction}
+          onChange={props.handleChange}
         />
         <Tooltip title="Case Sensitive">
           <TextField
-            id="password"
-            label="Password"
+            name="password"
+            required
+            label="password"
             className={classes.textField}
             type="password"
             autoComplete="current-password"
             margin="normal"
             fullWidth
-            onChange={props.passwordAction}
+            onChange={props.handleChange}
           />
         </Tooltip>
 
-        <Grid container spacing={12}>
-          <Grid item xs={6}>
+        <Grid container spacing={16}>
+          <Grid item xs={12} sm={6}>
             <Button
               size="large"
               variant="contained"
               color="primary"
-              onClick={props.submitAction}
+              onClick={props.handleSubmit}
             >
               Submit
             </Button>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <Button size="large" variant="contained" href="/signup">
               New User
             </Button>
