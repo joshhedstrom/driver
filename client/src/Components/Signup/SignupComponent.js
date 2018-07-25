@@ -19,6 +19,9 @@ const styles = theme => ({
   },
   margin: {
     margin: theme.spacing.unit
+  },
+  buttonStyle: {
+    textAlign: 'center'
   }
 });
 
@@ -29,70 +32,69 @@ function Signup(props) {
     <div className={classes.container}>
       <Paper className={classes.root} elevation={1}>
         <Typography variant="headline" component="h3">
-          Create Account
+          create an account
         </Typography>
+        <h4>{props.message}</h4>
         <Grid container spacing={24}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <TextField
-              id="firstName"
-              label="First Name (required)"
-              className={classes.textField}
+              required
+              name="firstName"
+              label="first name"
               margin="normal"
               fullWidth
-              onChange={props.firstNameAction}
+              onChange={props.handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              required
+              name="lastName"
+              label="last name"
+              margin="normal"
+              fullWidth
+              onChange={props.handleChange}
+            />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <TextField
+              required
+              name="username"
+              label="username"
+              margin="normal"
+              fullWidth
+              onChange={props.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              id="lastName"
-              label="Last Name (required)"
-              className={classes.textField}
-              margin="normal"
-              fullWidth
-              onChange={props.lastNameAction}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              id="username"
-              label="Username (required)"
-              className={classes.textField}
-              margin="normal"
-              fullWidth
-              onChange={props.usernameAction}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              id="password"
-              label="Password"
-              className={classes.textField}
+              required
+              name="password"
+              label="password"
               type="password"
-              autoComplete="current-password"
               margin="normal"
               fullWidth
-              onChange={props.passwordAction}
+              onChange={props.handleChange}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              id="passwordConfirmation"
-              label="Confirm Password"
-              className={classes.textField}
+              required
+              name="passwordConfirmation"
+              label="confirm password"
               type="password"
-              autoComplete="current-password"
               margin="normal"
               fullWidth
-              onChange={props.passwordConfirmAction}
+              onChange={props.handleChange}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid className={classes.buttonStyle} item xs={12}>
             <Button
               size="large"
               variant="contained"
               color="primary"
               className={classes.button}
-              onClick={props.submitAction}
+              onClick={props.handleSubmit}
             >
               Submit
             </Button>

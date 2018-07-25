@@ -1,16 +1,50 @@
-import React, { Component } from 'react';import { Redirect } from 'react-router-dom';
+import React, { Component } from 'react';
 import SignupComponent from '../../Components/Signup/SignupComponent';
 
 class Signup extends Component {
-    state = {}
+  state = {
+    firstName: null,
+    lastName: null,
+    username: null,
+    password: null,
+    passwordConfirmation: null,
+    message: ''
+  };
 
-    render() {
-        return (
-            <div>
-                <SignupComponent />
-            </div>
-        );
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleSubmit = () => {
+      let firstName = this.state.firstName;
+      let lastName = this.state.lastName;
+      let username = this.state.username;
+      let password = this.state.password;
+      let passwordConfirmation = this.state.passwordConfirmation;
+
+
+    if (!firstName || !lastName || !username || ! password || !passwordConfirmation) {
+      this.setState({ message: 'Oops...make sure to fill out all fields' });
+    } else if (password !== passwordConfirmation) {
+      this.setState({ message: "Oops...the passwords didn't match" });
+    } else {
+      //check passwords
+      //submit form
+      console.log('form ', this.state);
     }
+  };
+
+  render() {
+    return (
+      <div>
+        <SignupComponent
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+          message={this.state.message}
+        />
+      </div>
+    );
+  }
 }
 
 export default Signup;
