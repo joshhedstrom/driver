@@ -3,8 +3,9 @@ import HistoryContainer from '../../Components/History/HistoryContainer';
 import BottomNav from '../../Components/BottomNav';
 import axios from 'axios';
 
+let id = 0;
 function createData(date, hours, miles, income, edits) {
-    let id = 1;
+    id += 1;
     return { id, date, hours, miles, income, edits };
 }
 
