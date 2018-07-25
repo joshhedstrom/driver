@@ -9,12 +9,16 @@ import FormControl from '@material-ui/core/FormControl';
 
 const styles = theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    padding: 20
   },
   paper: {
     padding: theme.spacing.unit * 2,
     textAlign: 'center',
     color: theme.palette.text.secondary
+  },
+  buttonBox: {
+    textAlign: 'center'
   }
 });
 
@@ -24,8 +28,8 @@ class TripEndFrom extends React.Component {
 
     return (
       <div className={classes.root}>
-        <Grid container spacing={0}>
-          <Grid item xs={6}>
+        <Grid container spacing={16}>
+          <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}>
               <TextField
                 required
@@ -41,12 +45,12 @@ class TripEndFrom extends React.Component {
               />
             </Paper>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}>
               <TextField
                 type="number"
                 name="wages"
-                label='wages: $ / hour'
+                label="wages: $ / hour"
                 fullWidth
                 onChange={this.props.handleChange}
                 defaultValue={this.props.lastWages}
@@ -55,7 +59,7 @@ class TripEndFrom extends React.Component {
               />
             </Paper>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}>
               <TextField
                 placeholder="hours"
@@ -70,7 +74,7 @@ class TripEndFrom extends React.Component {
               />
             </Paper>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}>
               <FormControl fullWidth className={classes.margin}>
                 <TextField
@@ -98,14 +102,17 @@ class TripEndFrom extends React.Component {
               />
             </Paper>
           </Grid>
+          <Grid className={classes.buttonBox} item xs={12}>
+            <Button
+              onClick={this.props.handleEndTrip}
+              color="primary"
+              variant="outlined"
+              
+            >
+              end trip
+            </Button>
+          </Grid>
         </Grid>
-        <Button
-          onClick={this.props.handleEndTrip}
-          color="primary"
-          variant="outlined"
-        >
-          start trip
-          </Button>
       </div>
     );
   }

@@ -8,12 +8,16 @@ import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    padding: 20
   },
   paper: {
     padding: theme.spacing.unit * 2,
     textAlign: 'center',
     color: theme.palette.text.secondary
+  },
+  buttonBox: {
+    textAlign: 'center'
   }
 });
 
@@ -22,7 +26,7 @@ class TripStartFrom extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Grid container spacing={0}>
+        <Grid container spacing={16}>
           <Grid item xs={12}>
             <Paper className={classes.paper}>
               <TextField
@@ -30,7 +34,7 @@ class TripStartFrom extends React.Component {
                 placeholder="starting odometer"
                 type="number"
                 label="starting odometer"
-                name='startingOdometer'
+                name="startingOdometer"
                 fullWidth
                 onChange={this.props.handleChange}
                 defaultValue={this.props.startingValue}
@@ -41,19 +45,15 @@ class TripStartFrom extends React.Component {
               />
             </Paper>
           </Grid>
-          <Button
-            onClick={this.props.handleStartTrip}
-            color="primary"
-            variant="outlined"
-          >
-            start trip
-          </Button>
-          {/* <Grid item xs={6}>
-            <Paper className={classes.paper}>xs=6</Paper>
+          <Grid className={classes.buttonBox} item xs={12}>
+            <Button
+              onClick={this.props.handleEndTrip}
+              color="primary"
+              variant="outlined"
+            >
+              start trip
+            </Button>
           </Grid>
-          <Grid item xs={6}>
-            <Paper className={classes.paper}>xs=6</Paper>
-          </Grid> */}
         </Grid>
       </div>
     );

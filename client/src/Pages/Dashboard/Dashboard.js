@@ -4,7 +4,7 @@ import TripEndForm from '../../Components/Trips/TripEndForm/TripEndForm';
 
 class Dashboard extends Component {
   state = {
-    tripStarted: true,
+    tripStarted: false,
     startingValue: 0,
     startingEndValue: 0,
     startingOdometer: 0,

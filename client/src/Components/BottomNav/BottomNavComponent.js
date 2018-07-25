@@ -11,15 +11,10 @@ class BottomNav extends React.Component {
     return (
       <BottomNavigation value={this.props.currentPage} showLabels>
         <BottomNavigationAction
-          href="/profile"
-          label="profile"
-          icon={<PersonIcon />}
+          href="/"
+          label="dashboard"
+          icon={<HomeIcon />}
         />
-            <BottomNavigationAction
-                href="/"
-                label="dashboard"
-                icon={<HomeIcon />}
-            />
         <BottomNavigationAction
           href="/history"
           label="past trips"
