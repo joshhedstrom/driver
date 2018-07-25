@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import LoginComponent from '../../Components/Login'
 
 class Login extends Component {
     state = {}
 
-    renderRedirect = () => {
-        if (!localStorage.getItem('jwtToken')) {
-            return <Redirect to="/login" />;
-        }
-    }
-
     render() {
         return (
             <div>
-                {this.renderRedirect()}
+                <LoginComponent />
             </div>
         );
     }

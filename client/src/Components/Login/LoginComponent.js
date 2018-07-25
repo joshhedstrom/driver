@@ -8,21 +8,22 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Tooltip from '@material-ui/core/Tooltip';
-import style from './loginComponent.css';
 
 const styles = theme => ({
+  container: {
+    align: 'center'
+  },
   root: {
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
     textAlign: 'center',
-    margin: 10
+    margin: 20,
+    maxWidth: 500,
+    alignContent: 'center'
   },
   margin: {
     margin: theme.spacing.unit
-  },
-  buttonStyle: {
-    paddingBottom: '6%'
   }
 });
 
@@ -30,7 +31,7 @@ function Login(props) {
   const { classes } = props;
 
   return (
-    <div>
+    <div className={classes.container}>
       <Paper className={classes.root} elevation={1} justify="center">
         <Typography variant="headline" component="h3">
           Log In
@@ -57,7 +58,7 @@ function Login(props) {
         </Tooltip>
 
         <Grid container spacing={12}>
-          <Grid item xs={12} sm={3} className={classes.buttonStyle}>
+          <Grid item xs={6}>
             <Button
               size="large"
               variant="contained"
@@ -67,8 +68,8 @@ function Login(props) {
               Submit
             </Button>
           </Grid>
-          <Grid item xs={12} sm={3}>
-            <Button size="small" variant="contained" href="/signup">
+          <Grid item xs={6}>
+            <Button size="large" variant="contained" href="/signup">
               New User
             </Button>
           </Grid>
