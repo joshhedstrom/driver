@@ -61,7 +61,11 @@ class Dashboard extends Component {
   };
 
   handleChange = event => {
-    this.setState({ [event.target.name]: parseInt(event.target.value, 10) });
+    if (event.target.name === 'description') {
+      this.setState({ [event.target.name]: event.target.value });
+    } else {
+      this.setState({ [event.target.name]: parseInt(event.target.value, 10) });
+    }
   };
 
   handleSubmit = () => {
