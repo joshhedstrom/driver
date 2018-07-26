@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import TripStartForm from '../../Components/Trips/TripStartForm/TripStartForm';
 import TripEndForm from '../../Components/Trips/TripEndForm/TripEndForm';
 import BottomNav from '../../Components/BottomNav';
@@ -6,6 +7,7 @@ import axios from 'axios';
 
 class Dashboard extends Component {
   state = {
+    redirect: false,
     tripStarted: false,
     startingValue: 0,
     startingEndValue: 0,
@@ -18,7 +20,13 @@ class Dashboard extends Component {
     lastWages: 10,
     tripCompleted: false,
     description: ''
-  }
+  };
+
+  renderRedirect = () => {
+    if (!localStorage.getItem('jwtToken')) {
+      return <Redirect to="/login" />;
+    }
+  };
 
   componentWillMount() {
     let url = `/api/user/${localStorage.getItem('userId')}`;
@@ -27,12 +35,12 @@ class Dashboard extends Component {
     );
 
     axios.get(url).then(res => {
-      console.log(res.data)
+      console.log(res.data);
       this.setState({
         lastWages: res.data.defaultWage,
         tripStarted: res.data.tripStarted
-      })
-    })
+      });
+    });
   }
 
   clearState = () => {
@@ -50,11 +58,11 @@ class Dashboard extends Component {
       tripCompleted: false,
       description: ''
     });
-  }
+  };
 
   handleChange = event => {
     this.setState({ [event.target.name]: parseInt(event.target.value, 10) });
-  }
+  };
 
   handleSubmit = () => {
     let income = this.state.tips + this.state.wages;
@@ -90,9 +98,13 @@ class Dashboard extends Component {
         .catch(err => console.log(err));
       this.setState({ tripStarted: true });
     }
-  }
+  };
 
   render() {
+    {
+      this.renderRedirect();
+    }
+
     return (
       <div>
         {this.state.tripStarted ? (

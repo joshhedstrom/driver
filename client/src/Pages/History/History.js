@@ -1,27 +1,33 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import HistoryContainer from '../../Components/History/HistoryContainer';
 import BottomNav from '../../Components/BottomNav';
 import axios from 'axios';
 
 let id = 0;
 function createData(date, hours, miles, income, edits) {
-    id += 1;
-    return { id, date, hours, miles, income, edits };
+  id += 1;
+  return { id, date, hours, miles, income, edits };
 }
 
 const pastTrips = [
-    createData('05-06-2018', 3, 30, 24, 4.0),
-    createData('05-05-2018', 2, 20, 37, 4.3),
-    createData('05-04-2018', 1, 70, 24, 6.0),
-    createData('05-03-2018', 2, 50, 67, 4.3),
-    createData('05-02-2018', 3, 60, 49, 3.9)
+  createData('05-06-2018', 3, 30, 24, 4.0),
+  createData('05-05-2018', 2, 20, 37, 4.3),
+  createData('05-04-2018', 1, 70, 24, 6.0),
+  createData('05-03-2018', 2, 50, 67, 4.3),
+  createData('05-02-2018', 3, 60, 49, 3.9)
 ];
 class History extends Component {
   state = {
     pastTrips: pastTrips,
-  }
+    redirect: false
+  };
 
-  
+  renderRedirect = () => {
+    if (!localStorage.getItem('jwtToken')) {
+      return <Redirect to="/login" />;
+    }
+  };
 
   componentDidMount() {
     //axios call to get all past trips
@@ -29,14 +35,17 @@ class History extends Component {
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-  }
+  };
 
   handleSubmit = event => {
     event.preventDefault();
     //submit the edited trip
-  }
+  };
 
   render() {
+    {
+      this.renderRedirect();
+    }
     return (
       <div>
         <HistoryContainer pastTrips={this.state.pastTrips} />
