@@ -22,7 +22,6 @@ router.get(
   '/user/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    console.log('HIT THIS ROUTE')
     const token = getToken(req.headers);
     if (token) {
       db.User.findUserById(req, res);

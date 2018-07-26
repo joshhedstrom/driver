@@ -8,7 +8,8 @@ const UserSchema = new Schema({
   username: { type: String, require: true, unique: true },
   password: { type: String, require: true },
   defaultWage: {type: Number},
-  trips: [{ type: Schema.Types.ObjectId, ref: 'Trips' }]
+  trips: [{ type: Schema.Types.ObjectId, ref: 'Trips' }],
+  tripStarted: {type: Boolean, default: false}
 });
 
 UserSchema.pre('save', function (next) {

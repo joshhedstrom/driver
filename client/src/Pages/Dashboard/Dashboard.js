@@ -20,16 +20,19 @@ class Dashboard extends Component {
     description: ''
   }
 
-  componentDidMount() {
-    let userId = localStorage.getItem('userId')
-    let startingValue;
-    let lastWages;
+  componentWillMount() {
+    let url = `/api/user/${localStorage.getItem('userId')}`;
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem(
+      'jwtToken'
+    );
 
-    axios
-    .get(`/api/user/${userId}`)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
-    this.setState({ lastWages: lastWages });
+    axios.get(url).then(res => {
+      console.log(res.data)
+      this.setState({
+        lastWages: res.data.defaultWage,
+        tripStarted: res.data.tripStarted
+      })
+    })
   }
 
   clearState = () => {
