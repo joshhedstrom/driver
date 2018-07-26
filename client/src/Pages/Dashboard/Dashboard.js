@@ -9,15 +9,14 @@ class Dashboard extends Component {
   state = {
     redirect: false,
     tripStarted: false,
-    startingValue: 0,
-    startingEndValue: 0,
     startingOdometer: 0,
     endingOdometer: 0,
+    lastOdometer: 0,
     miles: 0,
     hours: 0,
     tips: 0,
     wages: 0,
-    lastWages: 10,
+    defaultWage: 10,
     tripCompleted: false,
     description: ''
   };
@@ -37,7 +36,9 @@ class Dashboard extends Component {
     axios.get(url).then(res => {
       console.log(res.data);
       this.setState({
-        lastWages: res.data.defaultWage,
+        defaultWage: res.data.defaultWage,
+        lastOdometer: res.data.lastOdometer,
+        startingOdometer: res.data.lastOdometer,
         tripStarted: res.data.tripStarted
       });
     });
@@ -53,8 +54,6 @@ class Dashboard extends Component {
       miles: 0,
       hours: 0,
       tips: 0,
-      wages: 0,
-      lastWages: 10,
       tripCompleted: false,
       description: ''
     });
@@ -69,8 +68,8 @@ class Dashboard extends Component {
   };
 
   handleSubmit = () => {
+    
     let income = this.state.tips + this.state.wages;
-    let currentTrip = localStorage.getItem('currentTrip');
     let formData = {
       startingOdometer: this.state.startingOdometer,
       endingOdometer: this.state.endingOdometer,
@@ -82,25 +81,42 @@ class Dashboard extends Component {
       description: this.state.description,
       tripCompleted: this.state.tripCompleted
     };
-
+    
+    let currentTrip = localStorage.getItem('currentTrip');
+    let userUrl = `/api/user/${localStorage.getItem('userId')}`;
     axios.defaults.headers.common['Authorization'] = localStorage.getItem(
       'jwtToken'
     );
 
+    
     if (currentTrip) {
       axios
         .put(`/api/updateTrip/${currentTrip}`, formData)
-        .then(res => console.log(res))
+        .then(res => res)
         .catch(err => console.log(err));
       localStorage.removeItem('currentTrip');
-      this.setState({ tripStarted: false });
-      this.clearState();
+      axios
+        .put(userUrl, { tripStarted: false, defaultWage: this.state.wages })
+        .then(this.clearState())
+        .catch(err => console.log(err));
     } else {
       axios
         .post('/api/newTrip', formData)
-        .then(res => localStorage.setItem('currentTrip', res.data._id))
+        .then(res => {
+          localStorage.setItem('currentTrip', res.data._id);
+          this.setState({
+            tripStarted: true,
+            lastOdometer: this.state.startingOdometer
+          });
+          axios
+            .put(userUrl, {
+              tripStarted: true,
+              lastOdometer: this.state.lastOdometer
+            })
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+        })
         .catch(err => console.log(err));
-      this.setState({ tripStarted: true });
     }
   };
 
@@ -113,16 +129,15 @@ class Dashboard extends Component {
       <div>
         {this.state.tripStarted ? (
           <TripEndForm
-            handleChange={this.handleChange}
+            lastOdometer={this.state.lastOdometer}
             handleSubmit={this.handleSubmit}
-            startingValue={this.startingValue}
+            handleChange={this.handleChange}
             timePassed={2.5}
-            lastWages={this.state.lastWages}
-            startingEndValue={this.state.startingEndValue}
+            defaultWage={this.state.defaultWage}
           />
         ) : (
           <TripStartForm
-            startingValue={this.state.startingValue}
+            lastOdometer={this.state.lastOdometer}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
           />

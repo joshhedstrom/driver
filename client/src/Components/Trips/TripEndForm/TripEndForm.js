@@ -39,7 +39,7 @@ class TripEndFrom extends React.Component {
                 name="endingOdometer"
                 fullWidth
                 onChange={this.props.handleChange}
-                defaultValue={this.props.startingEndValue}
+                defaultValue={this.props.lastOdometer}
                 InputLabelProps={{ shrink: true }}
                 margin="normal"
               />
@@ -53,7 +53,7 @@ class TripEndFrom extends React.Component {
                 label="wages: $ / hour"
                 fullWidth
                 onChange={this.props.handleChange}
-                defaultValue={this.props.lastWages}
+                defaultValue={this.props.defaultWage}
                 InputLabelProps={{ shrink: true }}
                 margin="normal"
               />

@@ -37,7 +37,7 @@ class TripStartFrom extends React.Component {
                 name="startingOdometer"
                 fullWidth
                 onChange={this.props.handleChange}
-                defaultValue={this.props.startingValue}
+                defaultValue={this.props.lastOdometer}
                 InputLabelProps={{
                   shrink: true
                 }}
