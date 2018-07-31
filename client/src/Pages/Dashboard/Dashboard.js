@@ -68,9 +68,11 @@ class Dashboard extends Component {
   };
 
   handleSubmit = () => {
-    
+
+    let userId = localStorage.getItem('userId')
     let income = this.state.tips + this.state.wages;
     let formData = {
+      userId: userId,
       startingOdometer: this.state.startingOdometer,
       endingOdometer: this.state.endingOdometer,
       miles: this.state.miles,
