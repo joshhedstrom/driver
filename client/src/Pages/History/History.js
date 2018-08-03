@@ -25,6 +25,7 @@ class History extends Component {
     axios
       .get(url)
       .then(res => {
+        console.log(res.data)
         this.setState({ pastTrips: res.data });
       })
       .catch(err => console.log(err));
