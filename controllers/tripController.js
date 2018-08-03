@@ -2,6 +2,11 @@ const db = require('../models');
 const moment = require('moment');
 
 module.exports = {
+  findAllTrips: function(req, res) {
+    db.Trip.find({ userId: req.params.userId })
+      .then(tripsModel => res.json(tripsModel))
+      .catch(err => res.status(422).json(err));
+  },
 
   findTripById: function(req, res) {
     db.User.findByIdAndUpdate({ _id: req.params.id })

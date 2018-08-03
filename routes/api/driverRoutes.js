@@ -52,7 +52,7 @@ router.get(
   (req, res) => {
     const token = getToken(req.headers);
     if (token) {
-      db.Trip.findTripByuserId(req, res);
+      db.Trip.findAllTrips(req, res);
     } else {
       return res.status(403).send({ success: false, msg: 'Unauthorized.' });
     }
