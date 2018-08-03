@@ -33,7 +33,8 @@ class Dashboard extends Component {
       'jwtToken'
     );
 
-    axios.get(url).then(res => {
+    axios
+    .get(url).then(res => {
       console.log(res.data);
       this.setState({
         defaultWage: res.data.defaultWage,
@@ -41,7 +42,8 @@ class Dashboard extends Component {
         startingOdometer: res.data.lastOdometer,
         tripStarted: res.data.tripStarted
       });
-    });
+    })
+    .catch(err => console.log(err))
   }
 
   clearState = () => {

@@ -6,11 +6,17 @@ module.exports = {
     db.User.findByIdAndUpdate({ _id: req.params.id })
       .select('-__v -password')
       .populate({
-        path: 'trips',
+        path: "trips",
         options: {
           sort: {
             date: -1
           }
+        },
+        select: "-__v",
+        populate: {
+          path: "trips",
+          model: "Trip",
+          select: "-__v"
         }
       })
       .then(userModel => res.json(userModel))
