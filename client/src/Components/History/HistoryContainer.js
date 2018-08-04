@@ -36,14 +36,16 @@ function HistoryContainer(props) {
         </TableHead>
         <TableBody>
           {props.pastTrips.map(trip => {
+            let income = trip.wage + trip.tips;
+            let miles = trip.endingOdometer - trip.startingOdometer;
             return (
               <TableRow key={trip.id}>
                 <TableCell component="th" scope="row">
                   {trip.date}
                 </TableCell>
                 <TableCell numeric>{trip.hours}</TableCell>
-                <TableCell numeric>{trip.miles}</TableCell>
-                <TableCell numeric>{trip.wages + trip.tips}</TableCell>
+                <TableCell numeric>{miles}</TableCell>
+                <TableCell numeric>{income}</TableCell>
                 <TableCell numeric>{trip.edits}</TableCell>
               </TableRow>
             );
