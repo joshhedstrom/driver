@@ -49,7 +49,7 @@ class TripEndFrom extends React.Component {
             <Paper className={classes.paper}>
               <TextField
                 type="number"
-                name="wages"
+                name="wage"
                 label="wages: $ / hour"
                 fullWidth
                 onChange={this.props.handleChange}
