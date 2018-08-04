@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const tripSchema = new Schema({
   userId: { type: Schema.Types.ObjectId },
-  date: { type: Date, default: Date.now },
+  startDate: { type: Date, default: Date.now },
+  endDate: {type: Date, default: Date.now },
   startingOdometer: { type: Number, default: 0 },
   endingOdometer: { type: Number, default: 0 },
   miles: { type: Number, default: 0 },
