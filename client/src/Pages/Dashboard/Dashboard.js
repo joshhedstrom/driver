@@ -15,7 +15,7 @@ class Dashboard extends Component {
     miles: 0,
     hours: 0,
     tips: 0,
-    wages: 0,
+    wage: 0,
     defaultWage: 10,
     tripCompleted: false,
     description: ''
@@ -49,9 +49,6 @@ class Dashboard extends Component {
   clearState = () => {
     this.setState({
       tripStarted: false,
-      startingValue: 0,
-      startingEndValue: 0,
-      startingOdometer: 0,
       endingOdometer: 0,
       miles: 0,
       hours: 0,
@@ -79,7 +76,7 @@ class Dashboard extends Component {
       endingOdometer: this.state.endingOdometer,
       miles: this.state.miles,
       hours: this.state.hours,
-      wages: this.state.wages,
+      wage: this.state.wage,
       tips: this.state.tips,
       income: income,
       description: this.state.description,

@@ -36,7 +36,8 @@ function HistoryContainer(props) {
         </TableHead>
         <TableBody>
           {props.pastTrips.map(trip => {
-            let income = trip.wage + trip.tips;
+            let totalWages = trip.wage * trip.hours;
+            let income = totalWages + trip.tips;
             let miles = trip.endingOdometer - trip.startingOdometer;
             return (
               <TableRow key={trip.id}>
