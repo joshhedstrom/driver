@@ -45,7 +45,7 @@ function SettingsComponent(props) {
                                   color="primary"
                               />
                           }
-                          label="dark theme"
+                          label="dark theme: Coming Soon!"
                       />
                   </Grid>
                   <Grid item xs={12}>
