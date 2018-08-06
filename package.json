@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/joshhedstrom/driverLoggingApp.git"
+    "url": "git+https://github.com/joshhedstrom/driver.git"
   },
   "author": "Josh Hedstrom <josh.hedstrom@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/joshhedstrom/driverLoggingApp/issues"
+    "url": "https://github.com/joshhedstrom/driver/issues"
   },
-  "homepage": "https://github.com/joshhedstrom/driverLoggingApp#readme",
+  "homepage": "https://github.com/joshhedstrom/driver#readme",
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "^3.0.0",
