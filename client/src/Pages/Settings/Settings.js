@@ -13,11 +13,9 @@ class Settings extends Component {
   };
 
   render() {
-    {
-      this.renderRedirect();
-    }
     return (
       <div>
+        {this.renderRedirect()}
         <SettingsComponent />
         <BottomNavComponent currentPage={2} />
       </div>

@@ -34,16 +34,17 @@ class Dashboard extends Component {
     );
 
     axios
-    .get(url).then(res => {
-      console.log(res.data);
-      this.setState({
-        defaultWage: res.data.defaultWage,
-        lastOdometer: res.data.lastOdometer,
-        startingOdometer: res.data.lastOdometer,
-        tripStarted: res.data.tripStarted
-      });
-    })
-    .catch(err => console.log(err))
+      .get(url)
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          defaultWage: res.data.defaultWage,
+          lastOdometer: res.data.lastOdometer,
+          startingOdometer: res.data.lastOdometer,
+          tripStarted: res.data.tripStarted
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   clearState = () => {
@@ -67,8 +68,7 @@ class Dashboard extends Component {
   };
 
   handleSubmit = () => {
-
-    let userId = localStorage.getItem('userId')
+    let userId = localStorage.getItem('userId');
     let income = this.state.tips + this.state.wages;
     let formData = {
       userId: userId,
@@ -82,14 +82,13 @@ class Dashboard extends Component {
       description: this.state.description,
       tripCompleted: this.state.tripCompleted
     };
-    
+
     let currentTrip = localStorage.getItem('currentTrip');
     let userUrl = `/api/user/${localStorage.getItem('userId')}`;
     axios.defaults.headers.common['Authorization'] = localStorage.getItem(
       'jwtToken'
     );
 
-    
     if (currentTrip) {
       axios
         .put(`/api/updateTrip/${currentTrip}`, formData)
@@ -122,12 +121,9 @@ class Dashboard extends Component {
   };
 
   render() {
-    {
-      this.renderRedirect();
-    }
-
     return (
       <div>
+        {this.renderRedirect()}
         {this.state.tripStarted ? (
           <TripEndForm
             lastOdometer={this.state.lastOdometer}

@@ -25,7 +25,7 @@ class History extends Component {
     axios
       .get(url)
       .then(res => {
-        console.log(res.data)
+        console.log(res.data);
         this.setState({ pastTrips: res.data });
       })
       .catch(err => console.log(err));
@@ -41,11 +41,9 @@ class History extends Component {
   };
 
   render() {
-    {
-      this.renderRedirect();
-    }
     return (
       <div>
+        {this.renderRedirect()}
         <HistoryContainer pastTrips={this.state.pastTrips} />
         <BottomNav currentPage={1} />
       </div>
