@@ -6,8 +6,8 @@ const auth = require('./auth');
 router.use('/api', apiRoutes);
 router.use('/auth', auth);
 
-// router.use(function(req, res) {
-//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
-// });
+router.use(function(req, res) {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
 
 module.exports = router;
