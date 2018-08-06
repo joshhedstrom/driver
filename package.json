@@ -2,11 +2,16 @@
   "name": "driverloggingapp",
   "version": "2.0.0",
   "description": "A Logging Application for Drivers",
+  "engines": {
+    "node": "8.11.1"
+  },
   "main": "server.js",
   "scripts": {
     "client": "node scripts/start-client.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"nodemon server.js\" \"npm run client\""
+    "start": "concurrently \"nodemon server.js\" \"npm run client\"",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
