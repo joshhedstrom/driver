@@ -1,26 +1,46 @@
-module.exports = (sequelize, Sequelize) => {
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt-nodejs');
 
-    const User = sequelize.define('user', {
-        id: {
-            autoIncrement: true,
-            primaryKey: true,
-            type: Sequelize.INTEGER
-        },
-        username: {
-            type: Sequelize.TEXT
-        },
-        password: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
-        last_login: {
-            type: Sequelize.DATE
-        },
-        status: {
-            type: Sequelize.ENUM('active', 'inactive'),
-            defaultValue: 'active'
+const UserSchema = new Schema({
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  username: { type: String, require: true, unique: true },
+  password: { type: String, require: true },
+  trips: [{ type: Schema.Types.ObjectId, ref: 'Trips' }],
+  defaultWage: {type: Number},
+  lastOdometer: {type: Number, default: 0},
+  tripStarted: {type: Boolean, default: false}
+});
+
+UserSchema.pre('save', function (next) {
+  var user = this;
+  if (this.isModified('password') || this.isNew) {
+    bcrypt.genSalt(10, (err, salt) => {
+      if (err) {
+        return next(err);
+      }
+      bcrypt.hash(user.password, salt, null, (err, hash) => {
+        if (err) {
+          return next(err);
         }
-
+        user.password = hash;
+        next();
+      });
     });
-    return User;
-}
+  } else {
+    return next();
+  }
+});
+
+UserSchema.methods.comparePassword = function (passw, cb) {
+  bcrypt.compare(passw, this.password, (err, isMatch) => {
+    if (err) {
+      return cb(err);
+    }
+    cb(null, isMatch);
+  });
+};
+
+
+module.exports = mongoose.model('User', UserSchema);
