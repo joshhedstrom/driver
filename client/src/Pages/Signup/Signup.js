@@ -43,7 +43,8 @@ class Signup extends Component {
 
       axios.post('/auth/register', formData).then(result => {
         this.props.history.push('/login');
-      });
+      })
+      .catch(err => console.log(`ERROR:: ${err}`))
     }
   };
 
