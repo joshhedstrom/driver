@@ -1,4 +1,4 @@
 module.exports = {
-  User: require('./User'),
-  Trip: require('./Trip')
+  User: require('./user.js'),
+  Trip: require('./Trip.js')
 };

@@ -8,12 +8,12 @@ const UserSchema = new Schema({
   username: { type: String, require: true, unique: true },
   password: { type: String, require: true },
   trips: [{ type: Schema.Types.ObjectId, ref: 'Trips' }],
-  defaultWage: {type: Number},
-  lastOdometer: {type: Number, default: 0},
-  tripStarted: {type: Boolean, default: false}
+  defaultWage: { type: Number },
+  lastOdometer: { type: Number, default: 0 },
+  tripStarted: { type: Boolean, default: false }
 });
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
   var user = this;
   if (this.isModified('password') || this.isNew) {
     bcrypt.genSalt(10, (err, salt) => {
@@ -33,7 +33,7 @@ UserSchema.pre('save', function (next) {
   }
 });
 
-UserSchema.methods.comparePassword = function (passw, cb) {
+UserSchema.methods.comparePassword = function(passw, cb) {
   bcrypt.compare(passw, this.password, (err, isMatch) => {
     if (err) {
       return cb(err);
@@ -41,6 +41,5 @@ UserSchema.methods.comparePassword = function (passw, cb) {
     cb(null, isMatch);
   });
 };
-
 
 module.exports = mongoose.model('User', UserSchema);
