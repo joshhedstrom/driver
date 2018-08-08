@@ -4,7 +4,7 @@ const settings = require('../config/settings');
 require('../config/passport')(passport);
 const jwt = require('jsonwebtoken');
 const router = require('express').Router();
-const User = require('../models/User.js');
+const User = require('../models/user.js');
 
 router.post('/register', (req, res) => {
   if (!req.body.username || !req.body.password) {
