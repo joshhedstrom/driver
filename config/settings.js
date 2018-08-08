@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
-    secret: 'driverlogger'
+  secret: process.env.SECRET
 };
