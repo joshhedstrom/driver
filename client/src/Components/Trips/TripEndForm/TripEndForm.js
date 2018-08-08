@@ -26,6 +26,9 @@ class TripEndFrom extends React.Component {
   render() {
     const { classes } = this.props;
 
+    let total = Date.now() - this.props.timePassed;
+    let timePassed = total / 3600;
+
     return (
       <div className={classes.root}>
         <Grid container spacing={16}>
@@ -68,7 +71,7 @@ class TripEndFrom extends React.Component {
                 name="hours"
                 fullWidth
                 onChange={this.props.handleChange}
-                defaultValue={this.props.timePassed}
+                defaultValue={timePassed}
                 InputLabelProps={{ shrink: true }}
                 margin="normal"
               />

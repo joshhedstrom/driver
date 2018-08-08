@@ -4,12 +4,15 @@ import TripStartForm from '../../Components/Trips/TripStartForm/TripStartForm';
 import TripEndForm from '../../Components/Trips/TripEndForm/TripEndForm';
 import BottomNav from '../../Components/BottomNav';
 import axios from 'axios';
+import moment from 'moment';
 
 class Dashboard extends Component {
   state = {
     redirect: false,
     tripStarted: false,
     startingOdometer: 0,
+    startDate: 0,
+    endDate: 0,
     endingOdometer: 0,
     lastOdometer: 0,
     miles: 0,
@@ -74,6 +77,8 @@ class Dashboard extends Component {
       userId: userId,
       startingOdometer: this.state.startingOdometer,
       endingOdometer: this.state.endingOdometer,
+      startDate: this.state.startDate,
+      endDate: Date.now(),
       miles: this.state.miles,
       hours: this.state.hours,
       wage: this.state.wage,
@@ -100,23 +105,24 @@ class Dashboard extends Component {
         .then(this.clearState())
         .catch(err => console.log(err));
     } else {
-      axios
-        .post('/api/newTrip', formData)
-        .then(res => {
-          localStorage.setItem('currentTrip', res.data._id);
-          this.setState({
-            tripStarted: true,
-            lastOdometer: this.state.startingOdometer
-          });
-          axios
-            .put(userUrl, {
+      this.setState({ startDate: Date.now() })
+        axios
+          .post('/api/newTrip', formData)
+          .then(res => {
+            localStorage.setItem('currentTrip', res.data._id);
+            this.setState({
               tripStarted: true,
-              lastOdometer: this.state.lastOdometer
-            })
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
-        })
-        .catch(err => console.log(err));
+              lastOdometer: this.state.startingOdometer
+            });
+            axios
+              .put(userUrl, {
+                tripStarted: true,
+                lastOdometer: this.state.lastOdometer
+              })
+              .then(res => console.log(res))
+              .catch(err => console.log(err));
+          })
+          .catch(err => console.log(err))
     }
   };
 
@@ -129,7 +135,7 @@ class Dashboard extends Component {
             lastOdometer={this.state.lastOdometer}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
-            timePassed={2.5}
+            timePassed={this.state.startDate}
             defaultWage={this.state.defaultWage}
           />
         ) : (
