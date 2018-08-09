@@ -66,7 +66,7 @@ class Dashboard extends Component {
     if (event.target.name === 'description') {
       this.setState({ [event.target.name]: event.target.value });
     } else {
-      this.setState({ [event.target.name]: parseInt(event.target.value, 10) });
+      this.setState({ [event.target.name]: parseFloat(event.target.value) });
     }
   };
 

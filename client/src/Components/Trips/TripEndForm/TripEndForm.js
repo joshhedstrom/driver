@@ -27,7 +27,7 @@ class TripEndFrom extends React.Component {
     const { classes } = this.props;
 
     let total = Date.now() - this.props.timePassed;
-    let timePassed = total / 3600;
+    let timePassed = (total / 3600).toFixed(1);
 
     return (
       <div className={classes.root}>
@@ -110,7 +110,6 @@ class TripEndFrom extends React.Component {
               onClick={this.props.handleSubmit}
               color="primary"
               variant="outlined"
-              
             >
               end trip
             </Button>
