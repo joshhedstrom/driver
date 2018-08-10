@@ -40,11 +40,23 @@ class History extends Component {
     //submit the edited trip
   };
 
+  editTrip = event => {
+    console.log(event.target);
+  };
+
+  deleteTrip = event => {
+    console.log(event.target);
+  };
+
   render() {
     return (
       <div>
         {this.renderRedirect()}
-        <HistoryContainer pastTrips={this.state.pastTrips} />
+        <HistoryContainer
+          pastTrips={this.state.pastTrips}
+          editTrip={this.editTrip()}
+          deleteTrip={this.deleteTrip()}
+        />
         <BottomNav currentPage={1} />
       </div>
     );

@@ -9,8 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit'
-import Icon from '@material-ui/core/Icon';
+import EditIcon from '@material-ui/icons/Edit';
 
 const styles = theme => ({
   root: {
@@ -52,10 +51,10 @@ function HistoryContainer(props) {
                 <TableCell numeric>{miles}</TableCell>
                 <TableCell numeric>{income}</TableCell>
                 <TableCell>
-                  <IconButton aria-label="Edit">
+                  <IconButton onClick={props.editTrip} aria-label="Edit">
                     <EditIcon />
                   </IconButton>
-                  <IconButton aria-label="Delete">
+                  <IconButton onClick={props.deleteTrip} aria-label="Delete">
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
