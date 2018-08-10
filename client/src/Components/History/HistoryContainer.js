@@ -34,7 +34,7 @@ function HistoryContainer(props) {
             <TableCell numeric>hours</TableCell>
             <TableCell numeric>miles</TableCell>
             <TableCell numeric>wages + tips</TableCell>
-            <TableCell numeric>editing</TableCell>
+            <TableCell ></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

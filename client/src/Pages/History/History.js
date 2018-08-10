@@ -54,8 +54,8 @@ class History extends Component {
         {this.renderRedirect()}
         <HistoryContainer
           pastTrips={this.state.pastTrips}
-          editTrip={this.editTrip()}
-          deleteTrip={this.deleteTrip()}
+          editTrip={this.editTrip.bind()}
+          deleteTrip={this.deleteTrip.bind()}
         />
         <BottomNav currentPage={1} />
       </div>
