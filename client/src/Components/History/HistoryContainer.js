@@ -43,7 +43,7 @@ function HistoryContainer(props) {
             let income = totalWages + trip.tips;
             let miles = trip.endingOdometer - trip.startingOdometer;
             return (
-              <TableRow key={trip.id}>
+              <TableRow key={trip._id} >
                 <TableCell component="th" scope="row">
                   {trip.date}
                 </TableCell>
