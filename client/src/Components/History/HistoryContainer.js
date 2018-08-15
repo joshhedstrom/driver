@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import moment from 'moment';
 
 const styles = theme => ({
   root: {
@@ -42,10 +43,11 @@ function HistoryContainer(props) {
             let totalWages = trip.wage * trip.hours;
             let income = totalWages + trip.tips;
             let miles = trip.endingOdometer - trip.startingOdometer;
+            let date = moment.unix(trip.startDate).utc()._d.toString();
             return (
               <TableRow key={trip._id} >
                 <TableCell component="th" scope="row">
-                  {trip.date}
+                  {date}
                 </TableCell>
                 <TableCell numeric>{trip.hours}</TableCell>
                 <TableCell numeric>{miles}</TableCell>
