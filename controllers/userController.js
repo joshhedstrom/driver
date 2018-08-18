@@ -1,5 +1,4 @@
 const db = require('../models');
-const moment = require('moment');
 
 module.exports = {
   // findUserById: function(req, res) {
