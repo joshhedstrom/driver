@@ -9,8 +9,8 @@ module.exports = {
   },
 
   findTripById: function(req, res) {
-    console.log(req.params.id)
-    db.Trip.findOne({ _id: req.params.id })
+    let id = req.params.id
+    db.Trip.findOne({ _id: id })
       .then(tripsModel =>{
 
         console.log(tripsModel)
