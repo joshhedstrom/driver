@@ -56,7 +56,7 @@ function HistoryContainer(props) {
                   <IconButton id={trip._id} onClick={props.editTrip} aria-label="Edit">
                     <EditIcon />
                   </IconButton>
-                  <IconButton id={trip._id} onClick={props.deleteTrip} aria-label="Delete">
+                  <IconButton id={trip._id} onClick={props.deleteOpen} aria-label="Delete">
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import HistoryContainer from '../../Components/History/HistoryContainer';
+import DeleteModal from '../../Components/Trips/DeleteModal';
 import BottomNav from '../../Components/BottomNav';
 import axios from 'axios';
 
 class History extends Component {
   state = {
     pastTrips: [],
-    redirect: false
+    redirect: false,
+    deleteOpen: false,
+    editOpen: false
   };
 
   renderRedirect = () => {
@@ -41,7 +44,6 @@ class History extends Component {
   };
 
   editTrip = event => {
-    console.log(event.target.id);
     let url = `/api/getTrip/${event.target.id}`;
     axios.defaults.headers.common['Authorization'] = localStorage.getItem(
       'jwtToken'
@@ -55,8 +57,15 @@ class History extends Component {
       .catch(err => console.log(err));
   };
 
+  deleteOpen = () => {
+    this.setState({ deleteOpen: true });
+  };
+
+  deleteClose = () => {
+    this.setState({ deleteOpen: false });
+  };
+
   deleteTrip = event => {
-    console.log(event.target.id);
     let url = `/api/deleteTrip/${event.target.id}`;
     axios.defaults.headers.common['Authorization'] = localStorage.getItem(
       'jwtToken'
@@ -65,9 +74,9 @@ class History extends Component {
       .delete(url)
       .then(res => {
         console.log(res.data);
-        
       })
       .catch(err => console.log(err));
+    window.location.reload();
   };
 
   render() {
@@ -77,6 +86,11 @@ class History extends Component {
         <HistoryContainer
           pastTrips={this.state.pastTrips}
           editTrip={this.editTrip}
+          deleteOpen={this.deleteOpen}
+        />
+        <DeleteModal
+          open={this.state.deleteOpen}
+          onClose={this.deleteClose}
           deleteTrip={this.deleteTrip}
         />
         <BottomNav currentPage={1} />
