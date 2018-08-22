@@ -42,13 +42,13 @@ class History extends Component {
 
   editTrip = event => {
     console.log(event.target.id);
-    let url = `/api/getTrip/${localStorage.getItem('userId')}`;
+    let url = `/api/getTrip/${event.target.id}`;
     axios.defaults.headers.common['Authorization'] = localStorage.getItem(
       'jwtToken'
     );
 
     axios
-      .get(url, { id: event.target.id })
+      .get(url)
       .then(res => {
         console.log(res.data);
       })
@@ -57,14 +57,15 @@ class History extends Component {
 
   deleteTrip = event => {
     console.log(event.target.id);
-    let url = `/api/deleteTrip/${localStorage.getItem('userId')}`;
+    let url = `/api/deleteTrip/${event.target.id}`;
     axios.defaults.headers.common['Authorization'] = localStorage.getItem(
       'jwtToken'
     );
     axios
-      .delete(url, { id: event.target.id })
+      .delete(url)
       .then(res => {
         console.log(res.data);
+        
       })
       .catch(err => console.log(err));
   };
