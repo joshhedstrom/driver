@@ -87,7 +87,6 @@ router.get(
   }
 );
 
-
 getToken = function(headers) {
   if (headers && headers.authorization) {
     let parted = headers.authorization.split(' ');

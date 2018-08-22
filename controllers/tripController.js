@@ -1,5 +1,4 @@
 const db = require('../models');
-const moment = require('moment');
 
 module.exports = {
   findAllTrips: function(req, res) {
@@ -9,15 +8,8 @@ module.exports = {
   },
 
   findTripById: function(req, res) {
-    let id = req.params.id
-    console.log(id)
-    db.Trip.findById(id)
-      .then(tripsModel =>{
-
-        console.log(tripsModel)
-        res.json(tripsModel)
-      } 
-    )
+    db.Trip.findById(req.params.id)
+      .then(tripsModel => res.json(tripsModel))
       .catch(err => res.status(422).json(err));
   },
 
@@ -34,9 +26,7 @@ module.exports = {
   },
 
   removeTrip: function(req, res) {
-    let id = req.params.id
-    console.log(id)
-    db.Trip.findById(id)
+    db.Trip.findById(req.params.id)
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
