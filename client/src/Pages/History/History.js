@@ -11,20 +11,19 @@ class History extends Component {
     redirect: false,
     deleteOpen: false,
     editOpen: false
-  };
+  }
 
   renderRedirect = () => {
     if (!localStorage.getItem('jwtToken')) {
       return <Redirect to="/login" />;
     }
-  };
+  }
 
   componentDidMount() {
     let url = `/api/getTrips/${localStorage.getItem('userId')}`;
     axios.defaults.headers.common['Authorization'] = localStorage.getItem(
       'jwtToken'
     );
-
     axios
       .get(url)
       .then(res => {
@@ -36,18 +35,18 @@ class History extends Component {
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-  };
+  }
 
   handleSubmit = event => {
     event.preventDefault();
     //submit the edited trip
-  };
+  }
 
   editTrip = event => {
     let url = `/api/getTrip/${event.target.id}`;
     axios.defaults.headers.common['Authorization'] = localStorage.getItem(
       'jwtToken'
-    );
+    )
 
     axios
       .get(url)
@@ -55,21 +54,22 @@ class History extends Component {
         console.log(res.data);
       })
       .catch(err => console.log(err));
-  };
+  }
 
   deleteOpen = () => {
     this.setState({ deleteOpen: true });
-  };
+    console.log(this.state)
+  }
 
   deleteClose = () => {
     this.setState({ deleteOpen: false });
-  };
+  }
 
   deleteTrip = event => {
     let url = `/api/deleteTrip/${event.target.id}`;
     axios.defaults.headers.common['Authorization'] = localStorage.getItem(
       'jwtToken'
-    );
+    )
     axios
       .delete(url)
       .then(res => {
@@ -77,7 +77,7 @@ class History extends Component {
       })
       .catch(err => console.log(err));
     window.location.reload();
-  };
+  }
 
   render() {
     return (

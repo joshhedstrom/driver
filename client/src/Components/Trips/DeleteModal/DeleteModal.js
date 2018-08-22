@@ -7,21 +7,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 class DeleteModal extends React.Component {
-
-    constructor(props){
-        console.log('props::::: ', props)
-        super(props);
-        this.state = {open: true}; 
-        this.componentWillMount()
-
-    }
-    
-    
-    componentWillMount(){
-        let open = this.props.open
-        this.setState({ open: open })
-    }
-
+  constructor(props) {
+    super(props);
+    let open = props.open
+    this.state = { open: open };
+  }
   render() {
     return (
       <div>
@@ -32,11 +22,12 @@ class DeleteModal extends React.Component {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            {"Delete this trip?"}
+            {'Delete this trip?'}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              Are you sure you want to delete this trip? This action cannot be undone!
+              Are you sure you want to delete this trip? This action cannot be
+              undone!
             </DialogContentText>
           </DialogContent>
           <DialogActions>
