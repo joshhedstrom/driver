@@ -59,6 +59,20 @@ router.get(
   }
 );
 
+//DELETE TRIP
+router.delete(
+  '/deleteTrip/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const token = getToken(req.headers);
+    if (token) {
+      db.Trip.removeTrip(req, res);
+    } else {
+      return res.status(403).send({ success: false, msg: 'Unauthorized.' });
+    }
+  }
+);
+
 // GETS ALL PAST TRIPS FOR USER
 router.get(
   '/getTrips/:userId',
