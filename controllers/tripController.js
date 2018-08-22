@@ -34,6 +34,7 @@ module.exports = {
   },
 
   removeTrip: function(req, res) {
+    console.log(req.params.id)
     db.Trip.findById({ _id: req.params.id })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
