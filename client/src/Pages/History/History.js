@@ -48,16 +48,25 @@ class History extends Component {
     );
 
     axios
-      .get(url, {id: event.target.id})
+      .get(url, { id: event.target.id })
       .then(res => {
         console.log(res.data);
-       
       })
       .catch(err => console.log(err));
   };
 
   deleteTrip = event => {
     console.log(event.target.id);
+    let url = `/api/deleteTrip/${localStorage.getItem('userId')}`;
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem(
+      'jwtToken'
+    );
+    axios
+      .delete(url, { id: event.target.id })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
