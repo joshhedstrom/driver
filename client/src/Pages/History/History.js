@@ -59,6 +59,7 @@ class History extends Component {
   deleteOpen = () => {
     this.setState({ deleteOpen: true });
     console.log(this.state)
+    console.log('open hit')
   }
 
   deleteClose = () => {
@@ -89,8 +90,8 @@ class History extends Component {
           deleteOpen={this.deleteOpen}
         />
         <DeleteModal
-          open={this.state.deleteOpen}
-          onClose={this.deleteClose}
+          deleteOpen={this.state.deleteOpen}
+          deleteClose={this.deleteClose}
           deleteTrip={this.deleteTrip}
         />
         <BottomNav currentPage={1} />

@@ -9,10 +9,21 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 class DeleteModal extends React.Component {
   constructor(props) {
     super(props);
-    let open = props.open
+    let open = props.deleteOpen
     this.state = { open: open };
+    console.log('constructor ran')
   }
+
+  deleteClose = () => {
+      this.setState({open: false})
+  }
+
+  deleteOpen = () => {
+    
+  }
+
   render() {
+      console.log('rendered')
     return (
       <div>
         <Dialog
@@ -27,11 +38,11 @@ class DeleteModal extends React.Component {
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               Are you sure you want to delete this trip? This action cannot be
-              undone!
+              undone.
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.deleteClose} color="primary" autoFocus>
+            <Button onClick={this.props.deleteClose} color="primary" autoFocus>
               cancel
             </Button>
             <Button onClick={this.props.deleteTrip} color="secondary">
