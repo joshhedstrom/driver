@@ -20,10 +20,12 @@ class History extends Component {
   }
 
   componentDidMount() {
+    this.loadTrips()
+  }
+
+  loadTrips = () => {
     let url = `/api/getTrips/${localStorage.getItem('userId')}`;
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem(
-      'jwtToken'
-    );
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios
       .get(url)
       .then(res => {
@@ -58,8 +60,6 @@ class History extends Component {
 
   deleteOpen = () => {
     this.setState({ deleteOpen: true });
-    console.log(this.state)
-    console.log('open hit')
   }
 
   deleteClose = () => {
@@ -75,9 +75,10 @@ class History extends Component {
       .delete(url)
       .then(res => {
         console.log(res.data);
+        this.loadTrips()
       })
       .catch(err => console.log(err));
-    window.location.reload();
+      this.deleteClose()
   }
 
   render() {
