@@ -10,7 +10,9 @@ class History extends Component {
     pastTrips: [],
     redirect: false,
     deleteOpen: false,
-    editOpen: false
+    editOpen: false,
+    deleteTrip: '',
+    editTrip: ''
   }
 
   renderRedirect = () => {
@@ -58,24 +60,24 @@ class History extends Component {
       .catch(err => console.log(err));
   }
 
-  deleteOpen = () => {
-    this.setState({ deleteOpen: true });
+  deleteOpen = event => {
+    this.setState({ deleteOpen: true, deleteTrip: event.target.id });
   }
 
   deleteClose = () => {
     this.setState({ deleteOpen: false });
   }
 
-  deleteTrip = event => {
-    let url = `/api/deleteTrip/${event.target.id}`;
+  deleteTrip = () => {
+    let url = `/api/deleteTrip/${this.state.deleteTrip}`;
     axios.defaults.headers.common['Authorization'] = localStorage.getItem(
       'jwtToken'
     )
     axios
       .delete(url)
       .then(res => {
-        console.log(res.data);
         this.loadTrips()
+        this.setState({deleteTrip: ''})
       })
       .catch(err => console.log(err));
       this.deleteClose()
