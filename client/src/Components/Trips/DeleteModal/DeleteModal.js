@@ -7,27 +7,12 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 class DeleteModal extends React.Component {
-  constructor(props) {
-    super(props);
-    let open = props.deleteOpen
-    this.state = { open: open };
-    console.log('constructor ran')
-  }
-
-  deleteClose = () => {
-      this.setState({open: false})
-  }
-
-  deleteOpen = () => {
-    
-  }
 
   render() {
-      console.log('rendered')
     return (
       <div>
         <Dialog
-          open={this.state.open}
+          open={this.props.deleteOpen}
           onClose={this.props.deleteClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
