@@ -11,24 +11,26 @@ class History extends Component {
     pastTrips: [],
     redirect: false,
     deleteOpen: false,
-    editOpen: true,
+    editOpen: false,
     deleteTrip: '',
-    editTrip: ''
-  }
+    editTrip: {}
+  };
 
   renderRedirect = () => {
     if (!localStorage.getItem('jwtToken')) {
       return <Redirect to="/login" />;
     }
-  }
+  };
 
   componentDidMount() {
-    this.loadTrips()
+    this.loadTrips();
   }
 
   loadTrips = () => {
     let url = `/api/getTrips/${localStorage.getItem('userId')}`;
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem(
+      'jwtToken'
+    );
     axios
       .get(url)
       .then(res => {
@@ -36,53 +38,63 @@ class History extends Component {
         this.setState({ pastTrips: res.data });
       })
       .catch(err => console.log(err));
-  }
+  };
 
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  }
 
-  handleSubmit = event => {
+    let id = event.target.id;
+    let value = event.target.value;
+    // this.setState({ editTrip: id(value) });
+  };
+
+  editSubmit = event => {
     event.preventDefault();
     //submit the edited trip
-  }
+    this.setState({editOpen: false})
+    this.loadTrips()
+  };
 
   editTrip = event => {
     let url = `/api/getTrip/${event.target.id}`;
     axios.defaults.headers.common['Authorization'] = localStorage.getItem(
       'jwtToken'
-    )
+    );
 
     axios
       .get(url)
       .then(res => {
         console.log(res.data);
+        this.setState({ editTrip: res.data, editOpen: true });
       })
       .catch(err => console.log(err));
-  }
+  };
 
   deleteOpen = event => {
     this.setState({ deleteOpen: true, deleteTrip: event.target.id });
-  }
+  };
 
   deleteClose = () => {
     this.setState({ deleteOpen: false });
-  }
+  };
+
+  editClose = () => {
+    this.setState({ editOpen: false });
+  };
 
   deleteTrip = () => {
     let url = `/api/deleteTrip/${this.state.deleteTrip}`;
     axios.defaults.headers.common['Authorization'] = localStorage.getItem(
       'jwtToken'
-    )
+    );
     axios
       .delete(url)
       .then(res => {
-        this.loadTrips()
-        this.setState({deleteTrip: ''})
+        this.loadTrips();
+        this.setState({ deleteTrip: '' });
       })
       .catch(err => console.log(err));
-      this.deleteClose()
-  }
+    this.deleteClose();
+  };
 
   render() {
     return (
@@ -99,10 +111,12 @@ class History extends Component {
           deleteTrip={this.deleteTrip}
         />
         <EditModal
-        editOpen={this.state.editOpen}
-        
-
-         />
+          editOpen={this.state.editOpen}
+          editSubmit={this.editSubmit}
+          editClose={this.editClose}
+          handleChange={this.handleChange}
+          trip={this.state.editTrip}
+        />
         <BottomNav currentPage={1} />
       </div>
     );

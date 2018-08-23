@@ -7,40 +7,26 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default class FormDialog extends React.Component {
-  state = {
-    open: true
-  };
-
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
+class EditModal extends React.Component {
   render() {
     return (
       <div>
         <Dialog
-          open={this.state.open}
+          open={this.props.editOpen}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Edit this trip</DialogTitle>
           <DialogContent>
-            {/* <DialogContentText>
-              To subscribe to this website, please enter your email address
-              here. We will send updates occasionally.
-            </DialogContentText> */}
             <TextField
               autoFocus
               margin="dense"
               id="startingOdometer"
               label="starting odometer"
               type="number"
+              defaultValue={this.props.trip.startingOdometer}
               fullWidth
+              onChange={this.props.handleChange}
             />
             <TextField
               autoFocus
@@ -49,14 +35,18 @@ export default class FormDialog extends React.Component {
               label="ending odometer"
               type="number"
               fullWidth
+              defaultValue={this.props.trip.endingOdometer}
+              onChange={this.props.handleChange}
             />
             <TextField
               autoFocus
               margin="dense"
               id="hours"
               label="hours"
+              defaultValue={this.props.trip.hours}
               type="number"
               fullWidth
+              onChange={this.props.handleChange}
             />
             <TextField
               autoFocus
@@ -64,7 +54,9 @@ export default class FormDialog extends React.Component {
               id="tips"
               label="total tips"
               type="number"
+              defaultValue={this.props.trip.tips}
               fullWidth
+              onChange={this.props.handleChange}
             />
             <TextField
               autoFocus
@@ -73,6 +65,8 @@ export default class FormDialog extends React.Component {
               label="wages"
               type="number"
               fullWidth
+              defaultValue={this.props.trip.wage}
+              onChange={this.props.handleChange}
             />
             <TextField
               autoFocus
@@ -81,13 +75,15 @@ export default class FormDialog extends React.Component {
               label="description"
               type="text"
               fullWidth
+              defaultValue={this.props.trip.description}
+              onChange={this.props.handleChange}
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.props.editClose} color="primary">
               cancel
             </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.props.editSubmit} color="primary">
               submit
             </Button>
           </DialogActions>
@@ -96,3 +92,5 @@ export default class FormDialog extends React.Component {
     );
   }
 }
+
+export default EditModal;
