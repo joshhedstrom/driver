@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import HistoryContainer from '../../Components/History/HistoryContainer';
 import DeleteModal from '../../Components/Trips/DeleteModal';
+import EditModal from '../../Components/Trips/EditModal';
 import BottomNav from '../../Components/BottomNav';
 import axios from 'axios';
 
@@ -10,7 +11,7 @@ class History extends Component {
     pastTrips: [],
     redirect: false,
     deleteOpen: false,
-    editOpen: false,
+    editOpen: true,
     deleteTrip: '',
     editTrip: ''
   }
@@ -97,6 +98,11 @@ class History extends Component {
           deleteClose={this.deleteClose}
           deleteTrip={this.deleteTrip}
         />
+        <EditModal
+        editOpen={this.state.editOpen}
+        
+
+         />
         <BottomNav currentPage={1} />
       </div>
     );
