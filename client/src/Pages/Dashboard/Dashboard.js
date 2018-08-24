@@ -4,7 +4,6 @@ import TripStartForm from '../../Components/Trips/TripStartForm/TripStartForm';
 import TripEndForm from '../../Components/Trips/TripEndForm/TripEndForm';
 import BottomNav from '../../Components/BottomNav';
 import axios from 'axios';
-import moment from 'moment';
 
 class Dashboard extends Component {
   state = {
