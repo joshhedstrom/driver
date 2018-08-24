@@ -61,7 +61,7 @@ class EditModal extends React.Component {
             <TextField
               autoFocus
               margin="dense"
-              id="wages"
+              id="wage"
               label="wages"
               type="number"
               fullWidth

@@ -41,18 +41,17 @@ class History extends Component {
   };
 
   handleChange = event => {
-
-    let tempTrip = { ...this.state.trip } 
-    const trip = Object.assign({[event.target.id]: event.target.value}, tempTrip)
-    this.setState({ trip })
-    console.log(this.state)
+    let originalTrip = { ...this.state.editTrip };
+    let editedTrip = Object.assign({ [event.target.id]: event.target.value });
+    let editTrip = { ...originalTrip, ...editedTrip };
+    this.setState({ editTrip: editTrip });
   };
 
   editSubmit = event => {
     event.preventDefault();
     //submit the edited trip
-    this.setState({editOpen: false})
-    this.loadTrips()
+    this.setState({ editOpen: false });
+    this.loadTrips();
   };
 
   editTrip = event => {
