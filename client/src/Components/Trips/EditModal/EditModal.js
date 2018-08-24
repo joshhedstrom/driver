@@ -13,7 +13,7 @@ class EditModal extends React.Component {
       <div>
         <Dialog
           open={this.props.editOpen}
-          onClose={this.handleClose}
+          onClose={this.props.editClose}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Edit this trip</DialogTitle>
@@ -24,8 +24,8 @@ class EditModal extends React.Component {
               id="startingOdometer"
               label="starting odometer"
               type="number"
-              defaultValue={this.props.trip.startingOdometer}
               fullWidth
+              defaultValue={this.props.trip.startingOdometer}
               onChange={this.props.handleChange}
             />
             <TextField
@@ -43,9 +43,9 @@ class EditModal extends React.Component {
               margin="dense"
               id="hours"
               label="hours"
-              defaultValue={this.props.trip.hours}
               type="number"
               fullWidth
+              defaultValue={this.props.trip.hours}
               onChange={this.props.handleChange}
             />
             <TextField
@@ -54,8 +54,8 @@ class EditModal extends React.Component {
               id="tips"
               label="total tips"
               type="number"
-              defaultValue={this.props.trip.tips}
               fullWidth
+              defaultValue={this.props.trip.tips}
               onChange={this.props.handleChange}
             />
             <TextField
