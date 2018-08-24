@@ -42,9 +42,10 @@ class History extends Component {
 
   handleChange = event => {
 
-    let id = event.target.id;
-    let value = event.target.value;
-    // this.setState({ editTrip: id(value) });
+    let tempTrip = { ...this.state.trip } 
+    const trip = Object.assign({[event.target.id]: event.target.value}, tempTrip)
+    this.setState({ trip })
+    console.log(this.state)
   };
 
   editSubmit = event => {
