@@ -49,7 +49,14 @@ class History extends Component {
 
   editSubmit = event => {
     event.preventDefault();
-    //submit the edited trip
+    let url = `/api/updateTrip/${this.state.editTrip._id}`;
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem(
+      'jwtToken'
+    );
+    axios
+      .put(url, this.state.editTrip)
+      .then(data => data)
+      .catch(err => console.log(err));
     this.setState({ editOpen: false });
     this.loadTrips();
   };
