@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './Root.css';
+import './App.css';
 import Root from './Root';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import orange from '@material-ui/core/colors/orange';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -18,10 +19,11 @@ const theme = createMuiTheme({
 function App() {
   return (
     <MuiThemeProvider theme={theme}>
+      <CssBaseline />
       <Root />
     </MuiThemeProvider>
   );
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App className="darkTheme" />, document.getElementById('root'));
 registerServiceWorker();
