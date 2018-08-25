@@ -4,7 +4,10 @@ import SettingsComponent from '../../Components/Settings';
 import BottomNavComponent from '../../Components/BottomNav';
 
 class Settings extends Component {
-  state = { redirect: false };
+  state = {
+    redirect: false,
+    checked: false
+  };
 
   renderRedirect = () => {
     if (!localStorage.getItem('jwtToken')) {
@@ -12,11 +15,25 @@ class Settings extends Component {
     }
   };
 
+  componentDidMount() {
+    let darkTheme = JSON.parse(localStorage.getItem('darkTheme'));
+    this.setState({ checked: darkTheme });
+  }
+
+  switchTheme = event => {
+    this.setState({ checked: event.target.checked });
+    localStorage.setItem('darkTheme', event.target.checked);
+    window.location.reload();
+  };
+
   render() {
     return (
       <div>
         {this.renderRedirect()}
-        <SettingsComponent />
+        <SettingsComponent
+          switchTheme={this.switchTheme}
+          checked={this.state.checked}
+        />
         <BottomNavComponent currentPage={2} />
       </div>
     );
