@@ -37,13 +37,13 @@ function SettingsComponent(props) {
             <FormControlLabel
               control={
                 <Switch
-                  checked={false}
-                  onChange={props.handleChange}
-                  value="checkedB"
+                  checked={props.checked}
+                  onChange={props.switchTheme}
+                  value="theme"
                   color="primary"
                 />
               }
-              label="dark theme: Coming Soon!"
+              label="dark theme"
             />
           </Grid>
           <Grid item xs={12}>
