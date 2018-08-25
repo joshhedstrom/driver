@@ -20,14 +20,10 @@ class Settings extends Component {
     this.setState({ checked: darkTheme });
   }
 
-  switchTheme = () => {
-    if (this.state.checked) {
-      this.setState({ checked: false });
-      localStorage.setItem('darkTheme', false);
-    } else if (!this.state.checked) {
-      this.setState({ checked: true });
-      localStorage.setItem('darkTheme', true);
-    }
+  switchTheme = event => {
+    this.setState({ checked: event.target.checked });
+    localStorage.setItem('darkTheme', event.target.checked);
+    window.location.reload();
   };
 
   render() {
