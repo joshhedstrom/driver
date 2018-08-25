@@ -6,7 +6,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import orange from '@material-ui/core/colors/orange'
 import registerServiceWorker from './registerServiceWorker';
 
-const color = 'dark'; //localStorage.getItem('theme')
+const color = localStorage.getItem('darkTheme') ? 'dark' : 'light'
 
 const theme = createMuiTheme({
   palette: {
