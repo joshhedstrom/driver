@@ -2,9 +2,26 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import Root from './Root';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import orange from '@material-ui/core/colors/orange'
 import registerServiceWorker from './registerServiceWorker';
 
+const color = 'dark'; //localStorage.getItem('theme')
 
+const theme = createMuiTheme({
+  palette: {
+    primary: orange,
+    type: color
+  }
+});
 
-ReactDOM.render(<Root />, document.getElementById('root'));
+function App() {
+  return (
+    <MuiThemeProvider theme={theme}>
+      <Root />
+    </MuiThemeProvider>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
