@@ -39,7 +39,7 @@ function SettingsComponent(props) {
                 <Switch
                   checked={props.checked}
                   onChange={props.switchTheme}
-                  value="theme"
+                  value="checked"
                   color="primary"
                 />
               }

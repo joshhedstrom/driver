@@ -4,34 +4,29 @@ import SettingsComponent from '../../Components/Settings';
 import BottomNavComponent from '../../Components/BottomNav';
 
 class Settings extends Component {
-
-  
   state = {
     redirect: false,
     checked: false
   };
-  
+
   renderRedirect = () => {
     if (!localStorage.getItem('jwtToken')) {
       return <Redirect to="/login" />;
     }
   };
 
-  componentDidMount(){
-    let darkTheme = localStorage.getItem('darkTheme')
-    this.setState({checked: darkTheme})
-
+  componentDidMount() {
+    let darkTheme = localStorage.getItem('darkTheme');
+    this.setState({ checked: darkTheme });
   }
-  
-  switchTheme = event => {
-    console.log(event.target);
-    if(this.state.darkTheme){
-      this.setState({checked: false})
-      localStorage.setItem('darkTheme', false)
-    }
-    else if(!this.state.darkTheme){
-      this.setState({checked: true})
-      localStorage.setItem('darkTheme', true)
+
+  switchTheme = () => {
+    if (this.state.checked) {
+      this.setState({ checked: false });
+      localStorage.setItem('darkTheme', false);
+    } else if (!this.state.checked) {
+      this.setState({ checked: true });
+      localStorage.setItem('darkTheme', true);
     }
   };
 
