@@ -8,7 +8,7 @@ import History from './Pages/History';
 import NavBar from './Components/Navbar';
 import './App.css';
 
-class App extends React.Component {
+class Root extends React.Component {
   render() {
     return (
       <Router>
@@ -27,4 +27,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Root;
