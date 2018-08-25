@@ -16,7 +16,7 @@ class Settings extends Component {
   };
 
   componentDidMount() {
-    let darkTheme = localStorage.getItem('darkTheme');
+    let darkTheme = JSON.parse(localStorage.getItem('darkTheme'));
     this.setState({ checked: darkTheme });
   }
 
