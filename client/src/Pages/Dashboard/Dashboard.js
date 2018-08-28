@@ -4,6 +4,7 @@ import TripStartForm from '../../Components/Trips/TripStartForm/TripStartForm';
 import TripEndForm from '../../Components/Trips/TripEndForm/TripEndForm';
 import BottomNav from '../../Components/BottomNav';
 import axios from 'axios';
+import './index.css'
 
 class Dashboard extends Component {
   state = {
@@ -127,10 +128,13 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div>
+      <div className='Site'>
+        <div className='Site-content'>
         {this.renderRedirect()}
         {this.state.tripStarted ? (
+          
           <TripEndForm
+          className='content'
             lastOdometer={this.state.lastOdometer}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
@@ -139,12 +143,14 @@ class Dashboard extends Component {
           />
         ) : (
           <TripStartForm
+          className='content'
             lastOdometer={this.state.lastOdometer}
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
           />
         )}
-        <BottomNav currentPage={0} />
+        </div>
+        <BottomNav className='footer' currentPage={0} />
       </div>
     );
   }
