@@ -4,6 +4,7 @@ import HistoryContainer from '../../Components/History/HistoryContainer';
 import DeleteModal from '../../Components/Trips/DeleteModal';
 import EditModal from '../../Components/Trips/EditModal';
 import BottomNav from '../../Components/BottomNav';
+import './index.css';
 import axios from 'axios';
 
 class History extends Component {
