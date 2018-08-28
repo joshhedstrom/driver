@@ -4,7 +4,7 @@ import TripStartForm from '../../Components/Trips/TripStartForm/TripStartForm';
 import TripEndForm from '../../Components/Trips/TripEndForm/TripEndForm';
 import BottomNav from '../../Components/BottomNav';
 import axios from 'axios';
-import './index.css'
+import './index.css';
 
 class Dashboard extends Component {
   state = {
@@ -105,52 +105,51 @@ class Dashboard extends Component {
         .then(this.clearState())
         .catch(err => console.log(err));
     } else {
-      this.setState({ startDate: Date.now() })
-        axios
-          .post('/api/newTrip', formData)
-          .then(res => {
-            localStorage.setItem('currentTrip', res.data._id);
-            this.setState({
+      this.setState({ startDate: Date.now() });
+      axios
+        .post('/api/newTrip', formData)
+        .then(res => {
+          localStorage.setItem('currentTrip', res.data._id);
+          this.setState({
+            tripStarted: true,
+            lastOdometer: this.state.startingOdometer
+          });
+          axios
+            .put(userUrl, {
               tripStarted: true,
-              lastOdometer: this.state.startingOdometer
-            });
-            axios
-              .put(userUrl, {
-                tripStarted: true,
-                lastOdometer: this.state.lastOdometer
-              })
-              .then(res => console.log(res))
-              .catch(err => console.log(err));
-          })
-          .catch(err => console.log(err))
+              lastOdometer: this.state.lastOdometer
+            })
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
     }
   };
 
   render() {
     return (
-      <div className='Site'>
-        <div className='Site-content'>
-        {this.renderRedirect()}
-        {this.state.tripStarted ? (
-          
-          <TripEndForm
-          className='content'
-            lastOdometer={this.state.lastOdometer}
-            handleSubmit={this.handleSubmit}
-            handleChange={this.handleChange}
-            timePassed={this.state.startDate}
-            defaultWage={this.state.defaultWage}
-          />
-        ) : (
-          <TripStartForm
-          className='content'
-            lastOdometer={this.state.lastOdometer}
-            handleSubmit={this.handleSubmit}
-            handleChange={this.handleChange}
-          />
-        )}
+      <div className="Site">
+        <div className="Site-content">
+          {this.renderRedirect()}
+          {this.state.tripStarted ? (
+            <TripEndForm
+              className="content"
+              lastOdometer={this.state.lastOdometer}
+              handleSubmit={this.handleSubmit}
+              handleChange={this.handleChange}
+              timePassed={this.state.startDate}
+              defaultWage={this.state.defaultWage}
+            />
+          ) : (
+            <TripStartForm
+              className="content"
+              lastOdometer={this.state.lastOdometer}
+              handleSubmit={this.handleSubmit}
+              handleChange={this.handleChange}
+            />
+          )}
         </div>
-        <BottomNav className='footer' currentPage={0} />
+        <BottomNav className="footer" currentPage={0} />
       </div>
     );
   }

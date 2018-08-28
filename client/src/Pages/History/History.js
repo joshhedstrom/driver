@@ -105,25 +105,27 @@ class History extends Component {
 
   render() {
     return (
-      <div>
-        {this.renderRedirect()}
-        <HistoryContainer
-          pastTrips={this.state.pastTrips}
-          editTrip={this.editTrip}
-          deleteOpen={this.deleteOpen}
-        />
-        <DeleteModal
-          deleteOpen={this.state.deleteOpen}
-          deleteClose={this.deleteClose}
-          deleteTrip={this.deleteTrip}
-        />
-        <EditModal
-          editOpen={this.state.editOpen}
-          editSubmit={this.editSubmit}
-          editClose={this.editClose}
-          handleChange={this.handleChange}
-          trip={this.state.editTrip}
-        />
+      <div className="Site">
+        <div className="Site-content">
+          {this.renderRedirect()}
+          <HistoryContainer
+            pastTrips={this.state.pastTrips}
+            editTrip={this.editTrip}
+            deleteOpen={this.deleteOpen}
+          />
+          <DeleteModal
+            deleteOpen={this.state.deleteOpen}
+            deleteClose={this.deleteClose}
+            deleteTrip={this.deleteTrip}
+          />
+          <EditModal
+            editOpen={this.state.editOpen}
+            editSubmit={this.editSubmit}
+            editClose={this.editClose}
+            handleChange={this.handleChange}
+            trip={this.state.editTrip}
+          />
+        </div>
         <BottomNav currentPage={1} />
       </div>
     );
