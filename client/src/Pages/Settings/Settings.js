@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import SettingsComponent from '../../Components/Settings';
 import BottomNavComponent from '../../Components/BottomNav';
+import './index.css';
 
 class Settings extends Component {
   state = {
@@ -28,12 +29,14 @@ class Settings extends Component {
 
   render() {
     return (
-      <div>
-        {this.renderRedirect()}
-        <SettingsComponent
-          switchTheme={this.switchTheme}
-          checked={this.state.checked}
-        />
+      <div className="Site">
+        <div className="Site-content">
+          {this.renderRedirect()}
+          <SettingsComponent
+            switchTheme={this.switchTheme}
+            checked={this.state.checked}
+          />
+        </div>
         <BottomNavComponent currentPage={2} />
       </div>
     );
