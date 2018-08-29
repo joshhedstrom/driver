@@ -24,6 +24,7 @@ const styles = theme => ({
 class TripStartFrom extends React.Component {
   render() {
     const { classes } = this.props;
+
     return (
       <div className={classes.root}>
         <Grid container spacing={16}>
@@ -31,16 +32,13 @@ class TripStartFrom extends React.Component {
             <Paper className={classes.paper}>
               <TextField
                 required
-                placeholder="starting odometer"
+                placeholder={`last odometer reading was: ${this.props.lastOdometer}`}
                 type="number"
                 label="starting odometer"
                 name="startingOdometer"
                 fullWidth
                 onChange={this.props.handleChange}
-                defaultValue={this.props.lastOdometer}
-                InputLabelProps={{
-                  shrink: true
-                }}
+                InputLabelProps={{ shrink: true }}
                 margin="normal"
               />
             </Paper>

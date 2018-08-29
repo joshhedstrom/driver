@@ -22,14 +22,13 @@ class Dashboard extends Component {
     defaultWage: 0,
     tripCompleted: false,
     description: ''
-  }
+  };
 
   renderRedirect = () => {
     if (!localStorage.getItem('jwtToken')) {
       return <Redirect to="/login" />;
     }
-  }
-  
+  };
 
   componentWillMount() {
     let url = `/api/user/${localStorage.getItem('userId')}`;
@@ -40,7 +39,6 @@ class Dashboard extends Component {
     axios
       .get(url)
       .then(res => {
-        console.log(res.data);
         this.setState({
           defaultWage: res.data.defaultWage,
           wage: res.data.defaultWage,
@@ -50,6 +48,7 @@ class Dashboard extends Component {
         });
       })
       .catch(err => console.log(err));
+      this.render()
   }
 
   clearState = () => {
@@ -62,7 +61,7 @@ class Dashboard extends Component {
       tripCompleted: false,
       description: ''
     });
-  }
+  };
 
   handleChange = event => {
     if (event.target.name === 'description') {
@@ -70,7 +69,7 @@ class Dashboard extends Component {
     } else {
       this.setState({ [event.target.name]: parseFloat(event.target.value) });
     }
-  }
+  };
 
   handleSubmit = () => {
     let userId = localStorage.getItem('userId');
@@ -103,7 +102,11 @@ class Dashboard extends Component {
         .catch(err => console.log(err));
       localStorage.removeItem('currentTrip');
       axios
-        .patch(userUrl, { tripStarted: false, defaultWage: this.state.wage, lastOdometer: this.state.endingOdometer })
+        .patch(userUrl, {
+          tripStarted: false,
+          defaultWage: this.state.wage,
+          lastOdometer: this.state.endingOdometer
+        })
         .then(this.clearState())
         .catch(err => console.log(err));
     } else {
@@ -121,12 +124,12 @@ class Dashboard extends Component {
               tripStarted: true,
               lastOdometer: this.state.startingOdometer
             })
-            .then(res => console.log(res))
+            .then(res => res)
             .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
     }
-  }
+  };
 
   render() {
     return (
