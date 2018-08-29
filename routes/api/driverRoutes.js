@@ -31,6 +31,20 @@ router.get(
   }
 );
 
+//EDIT USER MODEL
+router.patch(
+  '/user/:id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const token = getToken(req.headers);
+    if (token) {
+      db.User.updateUser(req, res);
+    } else {
+      return res.status(403).send({ success: false, msg: 'Unauthorized.' });
+    }
+  }
+);
+
 //UPDATE TRIP
 router.put(
   '/updateTrip/:id',
