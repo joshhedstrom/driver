@@ -101,7 +101,7 @@ class Dashboard extends Component {
         .catch(err => console.log(err));
       localStorage.removeItem('currentTrip');
       axios
-        .put(userUrl, { tripStarted: false, defaultWage: this.state.wage, lastOdometer: this.state.endingOdometer })
+        .patch(userUrl, { tripStarted: false, defaultWage: this.state.wage, lastOdometer: this.state.endingOdometer })
         .then(this.clearState())
         .catch(err => console.log(err));
     } else {
@@ -115,7 +115,7 @@ class Dashboard extends Component {
             lastOdometer: this.state.startingOdometer
           });
           axios
-            .put(userUrl, {
+            .patch(userUrl, {
               tripStarted: true,
               lastOdometer: this.state.startingOdometer
             })
