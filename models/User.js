@@ -8,7 +8,7 @@ const UserSchema = new Schema({
   username: { type: String, require: true, unique: true },
   password: { type: String, require: true },
   trips: [{ type: Schema.Types.ObjectId, ref: 'Trips' }],
-  defaultWage: { type: Number },
+  defaultWage: { type: Number, default: 0 },
   lastOdometer: { type: Number, default: 0 },
   tripStarted: { type: Boolean, default: false }
 });
