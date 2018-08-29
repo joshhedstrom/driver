@@ -19,7 +19,7 @@ class Dashboard extends Component {
     hours: 0,
     tips: 0,
     wage: 0,
-    defaultWage: 10,
+    defaultWage: 0,
     tripCompleted: false,
     description: ''
   }
@@ -29,6 +29,7 @@ class Dashboard extends Component {
       return <Redirect to="/login" />;
     }
   }
+  
 
   componentWillMount() {
     let url = `/api/user/${localStorage.getItem('userId')}`;
@@ -42,6 +43,7 @@ class Dashboard extends Component {
         console.log(res.data);
         this.setState({
           defaultWage: res.data.defaultWage,
+          wage: res.data.defaultWage,
           lastOdometer: res.data.lastOdometer,
           startingOdometer: res.data.lastOdometer,
           tripStarted: res.data.tripStarted
@@ -133,7 +135,6 @@ class Dashboard extends Component {
           {this.renderRedirect()}
           {this.state.tripStarted ? (
             <TripEndForm
-              className="content"
               lastOdometer={this.state.lastOdometer}
               handleSubmit={this.handleSubmit}
               handleChange={this.handleChange}
@@ -142,7 +143,6 @@ class Dashboard extends Component {
             />
           ) : (
             <TripStartForm
-              className="content"
               lastOdometer={this.state.lastOdometer}
               handleSubmit={this.handleSubmit}
               handleChange={this.handleChange}
