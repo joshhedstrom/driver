@@ -10,7 +10,9 @@ const UserSchema = new Schema({
   trips: [{ type: Schema.Types.ObjectId, ref: 'Trips' }],
   defaultWage: { type: Number, default: 0 },
   lastOdometer: { type: Number, default: 0 },
-  tripStarted: { type: Boolean, default: false }
+  tripStarted: { type: Boolean, default: false },
+  currentTripId: {type: String, default: ''},
+  currentTripStartTime: {type: Number, default: 0},
 });
 
 UserSchema.pre('save', function(next) {

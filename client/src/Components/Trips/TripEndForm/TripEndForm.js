@@ -26,7 +26,7 @@ class TripEndFrom extends React.Component {
   render() {
     const { classes } = this.props;
 
-    let total = Date.now() - this.props.timePassed;
+    let total = Date.now() - this.props.startDate;
     let timePassed = (total / 3600).toFixed(1);
 
     return (
