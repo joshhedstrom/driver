@@ -52,7 +52,7 @@ function HistoryContainer(props) {
                 </TableCell>
                 <TableCell numeric>{trip.hours}</TableCell>
                 <TableCell numeric>{miles}</TableCell>
-                <TableCell numeric>{income}</TableCell>
+                <TableCell numeric>$ {income}</TableCell>
                 <TableCell>
                   <IconButton id={trip._id} onClick={props.editTrip} aria-label="Edit">
                     <EditIcon />
