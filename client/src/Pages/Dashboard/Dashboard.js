@@ -11,19 +11,20 @@ class Dashboard extends Component {
   state = {
     redirect: false,
     tripStarted: false,
+    tripCompleted: false,
+    currentTripId: '',
     startingOdometer: 0,
-    startDate: 0,
-    endDate: 0,
     endingOdometer: 0,
     lastOdometer: 0,
+    startDate: 0,
+    endDate: 0,
     miles: 0,
     hours: 0,
     tips: 0,
     wage: 0,
     defaultWage: 0,
-    tripCompleted: false,
     description: '',
-    loading: true
+    loading: true,
   };
 
   renderRedirect = () => {
@@ -38,6 +39,7 @@ class Dashboard extends Component {
       'jwtToken'
     );
 
+    //GETTING USER DATA AND STATUS FROM DATABASE
     axios
       .get(url)
       .then(res => {
@@ -47,8 +49,14 @@ class Dashboard extends Component {
           lastOdometer: res.data.lastOdometer,
           startingOdometer: res.data.lastOdometer,
           tripStarted: res.data.tripStarted,
-          loading: false
+          loading: false,
+          currentTripId: res.data.currentTripId,
+          startDate: res.data.currentTripStartTime,
         });
+
+        if(res.data.tripStarted){
+
+        }
       })
       .catch(err => console.log(err));
     this.render();
