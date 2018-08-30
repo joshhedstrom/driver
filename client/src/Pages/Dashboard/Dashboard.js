@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import TripStartForm from '../../Components/Trips/TripStartForm/TripStartForm';
 import TripEndForm from '../../Components/Trips/TripEndForm/TripEndForm';
 import BottomNav from '../../Components/BottomNav';
+import Progress from '../../Components/Progress/Progress';
 import axios from 'axios';
 import './index.css';
 
@@ -21,7 +22,8 @@ class Dashboard extends Component {
     wage: 0,
     defaultWage: 0,
     tripCompleted: false,
-    description: ''
+    description: '',
+    loading: true
   };
 
   renderRedirect = () => {
@@ -44,11 +46,12 @@ class Dashboard extends Component {
           wage: res.data.defaultWage,
           lastOdometer: res.data.lastOdometer,
           startingOdometer: res.data.lastOdometer,
-          tripStarted: res.data.tripStarted
+          tripStarted: res.data.tripStarted,
+          loading: false
         });
       })
       .catch(err => console.log(err));
-      this.render()
+    this.render();
   }
 
   clearState = () => {
@@ -136,7 +139,9 @@ class Dashboard extends Component {
       <div className="Site">
         <div className="Site-content">
           {this.renderRedirect()}
-          {this.state.tripStarted ? (
+          {this.state.loading ? (
+            <Progress />
+          ) : this.state.tripStarted ? (
             <TripEndForm
               lastOdometer={this.state.lastOdometer}
               handleSubmit={this.handleSubmit}

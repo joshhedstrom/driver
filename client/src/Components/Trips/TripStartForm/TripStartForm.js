@@ -32,11 +32,12 @@ class TripStartFrom extends React.Component {
             <Paper className={classes.paper}>
               <TextField
                 required
-                placeholder={`last odometer reading was: ${this.props.lastOdometer}`}
+                placeholder="starting odometer"
                 type="number"
                 label="starting odometer"
                 name="startingOdometer"
                 fullWidth
+                defaultValue={this.props.lastOdometer}
                 onChange={this.props.handleChange}
                 InputLabelProps={{ shrink: true }}
                 margin="normal"
