@@ -4,6 +4,13 @@ A logging app for drivers
 
 I used to be a delivery driver, and one of the biggest challenges I came across was finding a good free and intuitive mileage tracking app. This project is designed to solve that problem. **Driver** is a simple and easy to use application that will help you log your miles and earnings and do some math to help you figure out how much you're making an hour. This app is a work in progress, with new features being added regularly.
 
+If you would like to demo the application, feel free to login under these credentials:
+
+```
+username: sample
+password: sample
+```
+
 ## Built With
 
 * [React.js](https://reactjs.org/) - Frontend Library
