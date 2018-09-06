@@ -106,7 +106,7 @@ class Dashboard extends Component {
     //IF TRIP IS IN PROGRESS
     if (tripStarted) {
       //UPDATE TRIP
-     this.setState({tripCompleted: true})
+      this.setState({ tripCompleted: true });
       axios
         .put(`/api/updateTrip/${this.state.currentTripId}`, formData)
         .then(res => res)

@@ -35,18 +35,20 @@ function HistoryContainer(props) {
             <TableCell numeric>hours</TableCell>
             <TableCell numeric>miles</TableCell>
             <TableCell numeric>wages + tips</TableCell>
-            <TableCell ></TableCell>
+            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
           {props.pastTrips.map(trip => {
-
             let totalWages = trip.wage * trip.hours;
             let income = totalWages + trip.tips;
             let miles = trip.endingOdometer - trip.startingOdometer;
-            let date = moment.unix(trip.startDate / 1000).utc()._d.toString();
+            let date = moment
+              .unix(trip.startDate / 1000)
+              .utc()
+              ._d.toString();
             return (
-              <TableRow key={trip._id} >
+              <TableRow key={trip._id}>
                 <TableCell component="th" scope="row">
                   {date}
                 </TableCell>
@@ -54,10 +56,18 @@ function HistoryContainer(props) {
                 <TableCell numeric>{miles}</TableCell>
                 <TableCell numeric>$ {income}</TableCell>
                 <TableCell>
-                  <IconButton id={trip._id} onClick={props.editTrip} aria-label="Edit">
+                  <IconButton
+                    id={trip._id}
+                    onClick={props.editTrip}
+                    aria-label="Edit"
+                  >
                     <EditIcon />
                   </IconButton>
-                  <IconButton id={trip._id} onClick={props.deleteOpen} aria-label="Delete">
+                  <IconButton
+                    id={trip._id}
+                    onClick={props.deleteOpen}
+                    aria-label="Delete"
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
