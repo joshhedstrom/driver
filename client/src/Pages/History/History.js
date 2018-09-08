@@ -36,7 +36,9 @@ class History extends Component {
       .get(url)
       .then(res => {
         console.log(res.data);
-        this.setState({ pastTrips: res.data });
+        let data = res.data;
+        let tripsArray = data.reverse();
+        this.setState({ pastTrips: tripsArray });
       })
       .catch(err => console.log(err));
   };
